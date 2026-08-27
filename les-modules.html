@@ -1136,7 +1136,7 @@
 <a id="__codelineno-13-27" name="__codelineno-13-27"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"[import-04] terminé"</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 20 : grâce au top-level await utilisé <strong>dans</strong> <span style="color: #9a3412">config-distante.ts</span>, l&#x27;import de la ligne 20 n&#x27;aboutit que lorsque la configuration a fini d&#x27;être chargée — pas besoin de <span style="color: #9a3412">.then()</span> ni de fonction <span style="color: #9a3412">async</span> ici ;</li>
+<li>ligne 19 : grâce au top-level await utilisé <strong>dans</strong> <span style="color: #9a3412">config-distante.ts</span>, l&#x27;import de la ligne 19 n&#x27;aboutit que lorsque la configuration a fini d&#x27;être chargée — pas besoin de <span style="color: #9a3412">.then()</span> ni de fonction <span style="color: #9a3412">async</span> ici ;</li>
 <li>les modules ES sont toujours évalués <strong>avant</strong> le code du module qui les importe, même si l&#x27;instruction <span style="color: #9a3412">import</span> n&#x27;est pas écrite en première ligne du fichier : c&#x27;est pourquoi les messages de <span style="color: #9a3412">config-distante.ts</span> s&#x27;affichent avant celui d&#x27;<span style="color: #9a3412">import-04.ts</span>, alors que ce dernier est textuellement placé avant l&#x27;import dans le fichier ;</li>
 <li>ligne 26 : on peut aussi utiliser <span style="color: #9a3412">await</span> directement dans <span style="color: #9a3412">import-04.ts</span> lui-même, à son propre premier niveau.</li>
 </ul>

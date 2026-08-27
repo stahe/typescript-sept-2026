@@ -1121,10 +1121,10 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>lignes 3-5 : <strong><span style="color: #9a3412">[mise à jour 2026]</span></strong> — commentaire signalant que <span style="color: #9a3412">fetch</span> est désormais natif, contrairement à 2019 ;</li>
-<li>ligne 18 : <span style="color: #9a3412">AbortSignal.timeout(2000)</span> — remplace l&#x27;option <span style="color: #9a3412">timeout</span> de <span style="color: #9a3412">node-fetch</span> (qui n&#x27;existe pas sur <span style="color: #9a3412">fetch</span> natif) : au-delà de 2 secondes, la requête est automatiquement annulée ;</li>
-<li>ligne 27 : <span style="color: #9a3412">fetch(URL, options)</span> — la syntaxe reste celle du fetch standard : une URL, et un objet d&#x27;options (méthode, signal d&#x27;annulation...) ;</li>
-<li>ligne 38 : <span style="color: #9a3412">await response.json()</span> — extrait le corps JSON de la réponse ; c&#x27;est une opération elle-même asynchrone (<span style="color: #9a3412">response</span> peut être un flux en cours de réception) ;</li>
-<li>ligne 50 : <span style="color: #9a3412">fetch</span> ne lance une exception que si la requête HTTP <strong>n&#x27;a pu aboutir</strong> (réseau inaccessible, timeout...). Si une réponse est reçue, même avec un code d&#x27;erreur (400, 500...), <span style="color: #9a3412">fetch</span> ne lance <strong>pas</strong> d&#x27;exception : la réponse est disponible normalement, ligne 38.</li>
+<li>ligne 22 : <span style="color: #9a3412">AbortSignal.timeout(2000)</span> — remplace l&#x27;option <span style="color: #9a3412">timeout</span> de <span style="color: #9a3412">node-fetch</span> (qui n&#x27;existe pas sur <span style="color: #9a3412">fetch</span> natif) : au-delà de 2 secondes, la requête est automatiquement annulée ;</li>
+<li>ligne 29 : <span style="color: #9a3412">fetch(URL, options)</span> — la syntaxe reste celle du fetch standard : une URL, et un objet d&#x27;options (méthode, signal d&#x27;annulation...) ;</li>
+<li>ligne 43 : <span style="color: #9a3412">await response.json()</span> — extrait le corps JSON de la réponse ; c&#x27;est une opération elle-même asynchrone (<span style="color: #9a3412">response</span> peut être un flux en cours de réception) ;</li>
+<li>ligne 54 : <span style="color: #9a3412">fetch</span> ne lance une exception que si la requête HTTP <strong>n&#x27;a pu aboutir</strong> (réseau inaccessible, timeout...). Si une réponse est reçue, même avec un code d&#x27;erreur (400, 500...), <span style="color: #9a3412">fetch</span> ne lance <strong>pas</strong> d&#x27;exception : la réponse est disponible normalement, ligne 38.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npx tsx http/fetch-01.ts
 </code></pre></div>
@@ -1381,9 +1381,9 @@
 <a id="__codelineno-6-64" name="__codelineno-6-64"></a><span class="n">main</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 24 : <span style="color: #9a3412">axios.request(options)</span> — contrairement à <span style="color: #9a3412">fetch</span>, l&#x27;URL et les options sont regroupées dans un seul objet de configuration ;</li>
-<li>ligne 33 : <span style="color: #9a3412">error.response</span> — si le serveur a répondu (même avec un code d&#x27;erreur), axios place cette réponse dans <span style="color: #9a3412">error.response</span>, accessible dans le <span style="color: #9a3412">catch</span> — contrairement à <span style="color: #9a3412">fetch</span>, axios <strong>lance systématiquement une exception</strong> dès que le code HTTP n&#x27;est pas un succès (2xx) ;</li>
-<li>ligne 26 : la réponse réussie est dans <span style="color: #9a3412">response.data</span> — axios fait automatiquement l&#x27;extraction JSON, pas besoin d&#x27;un <span style="color: #9a3412">await response.json()</span> séparé comme avec <span style="color: #9a3412">fetch</span>.</li>
+<li>ligne 26 : <span style="color: #9a3412">axios.request(options)</span> — contrairement à <span style="color: #9a3412">fetch</span>, l&#x27;URL et les options sont regroupées dans un seul objet de configuration ;</li>
+<li>ligne 37 : <span style="color: #9a3412">error.response</span> — si le serveur a répondu (même avec un code d&#x27;erreur), axios place cette réponse dans <span style="color: #9a3412">error.response</span>, accessible dans le <span style="color: #9a3412">catch</span> — contrairement à <span style="color: #9a3412">fetch</span>, axios <strong>lance systématiquement une exception</strong> dès que le code HTTP n&#x27;est pas un succès (2xx) ;</li>
+<li>ligne 31 : la réponse réussie est dans <span style="color: #9a3412">response.data</span> — axios fait automatiquement l&#x27;extraction JSON, pas besoin d&#x27;un <span style="color: #9a3412">await response.json()</span> séparé comme avec <span style="color: #9a3412">fetch</span>.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>npx tsx http/axios-01.ts
 </code></pre></div>
@@ -1615,7 +1615,7 @@
 <a id="__codelineno-9-96" name="__codelineno-9-96"></a><span class="n">main</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>lignes 39-53 : la requête POST envoie ses paramètres (<span style="color: #9a3412">user</span>, <span style="color: #9a3412">password</span>) encodés en <span style="color: #9a3412">application/x-www-form-urlencoded</span>, via <span style="color: #9a3412">qs.stringify(...)</span> dans <span style="color: #9a3412">options.data</span> ;</li>
+<li>lignes 40-53 : la requête POST envoie ses paramètres (<span style="color: #9a3412">user</span>, <span style="color: #9a3412">password</span>) encodés en <span style="color: #9a3412">application/x-www-form-urlencoded</span>, via <span style="color: #9a3412">qs.stringify(...)</span> dans <span style="color: #9a3412">options.data</span> ;</li>
 <li>les deux fonctions sont exécutées <strong>séquentiellement</strong> dans <span style="color: #9a3412">main</span> (<span style="color: #9a3412">await</span> l&#x27;une après l&#x27;autre) : la seconde ne peut avoir de sens que si la première a réussi, puisqu&#x27;elle dépend du cookie de session établi par <span style="color: #9a3412">init-session</span>.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>npx tsx http/axios-03.ts

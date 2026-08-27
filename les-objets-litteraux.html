@@ -995,8 +995,8 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>lignes 5-9 : l&#x27;<strong><span style="color: #9a3412">[interface]</span></strong> <span style="color: #9a3412">Obj1</span> annonce à l&#x27;avance les propriétés qui seront ajoutées (<span style="color: #9a3412">prop1</span>, <span style="color: #9a3412">prop2</span>, <span style="color: #9a3412">prop3</span>, toutes optionnelles avec <span style="color: #9a3412">?</span>). La ligne <span style="color: #9a3412">[clé: string]: unknown</span> est une <strong>signature d&#x27;index</strong> : elle autorise, en plus, l&#x27;ajout de n&#x27;importe quelle autre propriété non prévue à l&#x27;avance ;</li>
-<li>ligne 11 : <span style="color: #9a3412">obj1.prop3</span> peut aussi s&#x27;écrire <span style="color: #9a3412">obj1[&#x27;prop3&#x27;]</span> — cette dernière notation est indispensable lorsque le nom de la propriété est en fait le contenu d&#x27;une variable (lignes 24-25) ;</li>
-<li>lignes 18-21 : <span style="color: #9a3412">const obj2: Obj1 = obj1</span> est une <strong>copie de référence</strong>, pas une copie de l&#x27;objet — modifier <span style="color: #9a3412">obj2</span> modifie donc aussi ce que l&#x27;on voit à travers <span style="color: #9a3412">obj1</span>, comme pour les tableaux.</li>
+<li>ligne 19 : <span style="color: #9a3412">obj1.prop3</span> peut aussi s&#x27;écrire <span style="color: #9a3412">obj1[&#x27;prop3&#x27;]</span> — cette dernière notation est indispensable lorsque le nom de la propriété est en fait le contenu d&#x27;une variable (lignes 28-29) ;</li>
+<li>lignes 22-25 : <span style="color: #9a3412">const obj2: Obj1 = obj1</span> est une <strong>copie de référence</strong>, pas une copie de l&#x27;objet — modifier <span style="color: #9a3412">obj2</span> modifie donc aussi ce que l&#x27;on voit à travers <span style="color: #9a3412">obj1</span>, comme pour les tableaux.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npx tsx objets/obj-01.ts
 </code></pre></div>
@@ -1085,8 +1085,8 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>lignes 3-8 : une <strong><span style="color: #9a3412">[interface]</span></strong> peut elle-même contenir des types objets imbriqués (<span style="color: #9a3412">père</span>, <span style="color: #9a3412">mère</span>) ;</li>
-<li>ligne 28 : <strong><span style="color: #9a3412">[JSON.stringify]</span></strong> transforme un objet TypeScript en chaîne JSON ;</li>
-<li>ligne 31 : <strong><span style="color: #9a3412">[JSON.parse]</span></strong> fait l&#x27;inverse — on notera que le résultat est typé <span style="color: #9a3412">PersonneFamille</span>, ce qui suppose que la chaîne JSON respecte bien cette forme (TypeScript ne le vérifie pas à l&#x27;exécution, seulement à la compilation).</li>
+<li>ligne 30 : <strong><span style="color: #9a3412">[JSON.stringify]</span></strong> transforme un objet TypeScript en chaîne JSON ;</li>
+<li>ligne 33 : <strong><span style="color: #9a3412">[JSON.parse]</span></strong> fait l&#x27;inverse — on notera que le résultat est typé <span style="color: #9a3412">PersonneFamille</span>, ce qui suppose que la chaîne JSON respecte bien cette forme (TypeScript ne le vérifie pas à l&#x27;exécution, seulement à la compilation).</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>npx tsx objets/obj-02.ts
 </code></pre></div>
@@ -1175,9 +1175,9 @@
 <li>lignes 3-6 : l&#x27;<strong><span style="color: #9a3412">[interface]</span></strong> <span style="color: #9a3412">PersonneAvecNom</span> déclare <span style="color: #9a3412">_nom</span> en propriété <strong>optionnelle</strong> (préfixée d&#x27;un underscore par convention, pour signaler que c&#x27;est une propriété « privée », même si TypeScript ne l&#x27;empêche pas d&#x27;y accéder — voir le vrai encapsulement avec <span style="color: #9a3412">#champ</span> au chapitre « Les classes ») ;</li>
 <li>lignes 8-11 : le <strong><span style="color: #9a3412">[getter]</span></strong> — mot clé <span style="color: #9a3412">get</span> plutôt que <span style="color: #9a3412">function</span> — rend la valeur de <span style="color: #9a3412">_nom</span> ;</li>
 <li>lignes 13-16 : le <strong><span style="color: #9a3412">[setter]</span></strong> — mot clé <span style="color: #9a3412">set</span> — reçoit la valeur affectée et peut la valider avant de la stocker ;</li>
-<li>ligne 19 : <span style="color: #9a3412">personne.nom = &quot;Hercule&quot;</span> appelle <strong>implicitement</strong> le setter ;</li>
-<li>ligne 21 : <span style="color: #9a3412">personne.nom</span> appelle <strong>implicitement</strong> le getter ;</li>
-<li>ligne 24 : rien n&#x27;empêche d&#x27;accéder directement à <span style="color: #9a3412">_nom</span> — l&#x27;encapsulation par convention dépend de la discipline du développeur.</li>
+<li>ligne 20 : <span style="color: #9a3412">personne.nom = &quot;Hercule&quot;</span> appelle <strong>implicitement</strong> le setter ;</li>
+<li>ligne 22 : <span style="color: #9a3412">personne.nom</span> appelle <strong>implicitement</strong> le getter ;</li>
+<li>ligne 26 : rien n&#x27;empêche d&#x27;accéder directement à <span style="color: #9a3412">_nom</span> — l&#x27;encapsulation par convention dépend de la discipline du développeur.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>npx tsx objets/obj-03.ts
 </code></pre></div>
@@ -1362,8 +1362,8 @@
 <a id="__codelineno-12-31" name="__codelineno-12-31"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"personne.toString="</span><span class="p">,</span><span class="w"> </span><span class="nx">personne</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 9 : l&#x27;<strong><span style="color: #9a3412">[interface]</span></strong> déclare <span style="color: #9a3412">toString: () =&gt; string</span> — le type d&#x27;une méthode se déclare comme celui d&#x27;une propriété fonction ;</li>
-<li>lignes 21-23 : à l&#x27;intérieur de la méthode, <strong><span style="color: #9a3412">[this]</span></strong> désigne l&#x27;objet lui-même — <span style="color: #9a3412">this.prénom</span> est la propriété <span style="color: #9a3412">prénom</span> de cet objet.</li>
+<li>ligne 4 : l&#x27;<strong><span style="color: #9a3412">[interface]</span></strong> déclare <span style="color: #9a3412">toString: () =&gt; string</span> — le type d&#x27;une méthode se déclare comme celui d&#x27;une propriété fonction ;</li>
+<li>ligne 25 : à l&#x27;intérieur de la méthode, <strong><span style="color: #9a3412">[this]</span></strong> désigne l&#x27;objet lui-même — <span style="color: #9a3412">this.prénom</span> est la propriété <span style="color: #9a3412">prénom</span> de cet objet.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>npx tsx objets/obj-05.ts
 </code></pre></div>
@@ -1503,8 +1503,8 @@
 <a id="__codelineno-15-58" name="__codelineno-15-58"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 9 : la signature d&#x27;index <span style="color: #9a3412">[clé: string]: unknown</span> est <strong>nécessaire</strong> ici pour que TypeScript autorise l&#x27;accès dynamique <span style="color: #9a3412">personne[key]</span> de la boucle <span style="color: #9a3412">for...in</span> ;</li>
-<li>lignes 34-40 : <span style="color: #9a3412">for (const key in personne)</span> parcourt les noms de propriétés. Le test <span style="color: #9a3412">hasOwnProperty</span> élimine les propriétés éventuellement héritées (non présentes dans ce script, mais bonne pratique systématique) ;</li>
+<li>ligne 11 : la signature d&#x27;index <span style="color: #9a3412">[clé: string]: unknown</span> est <strong>nécessaire</strong> ici pour que TypeScript autorise l&#x27;accès dynamique <span style="color: #9a3412">personne[key]</span> de la boucle <span style="color: #9a3412">for...in</span> ;</li>
+<li>lignes 35-41 : <span style="color: #9a3412">for (const key in personne)</span> parcourt les noms de propriétés. Le test <span style="color: #9a3412">hasOwnProperty</span> élimine les propriétés éventuellement héritées (non présentes dans ce script, mais bonne pratique systématique) ;</li>
 <li>ce script propose 3 écritures équivalentes de ce test — la 2ᵉ (<span style="color: #9a3412">Object.prototype.hasOwnProperty.call(...)</span>) est la plus robuste, la 3ᵉ se contente de désactiver l&#x27;avertissement ESLint correspondant. Depuis 2022, la méthode <span style="color: #9a3412">Object.hasOwn()</span> (chapitre suivant, <span style="color: #9a3412">obj-09</span>) rend ce choix inutile.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>npx tsx objets/obj-06.ts
@@ -1635,8 +1635,8 @@
 <a id="__codelineno-18-36" name="__codelineno-18-36"></a><span class="nx">h</span><span class="p">(</span><span class="nx">obj1</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 15 : <span style="color: #9a3412">const { nom: n, prénom: p } = obj1</span> crée deux variables <span style="color: #9a3412">n</span> et <span style="color: #9a3412">p</span>, équivalent à <span style="color: #9a3412">const n = obj1.nom; const p = obj1.prénom</span> ;</li>
-<li>lignes 18-21, 24-27, 30-33 : la déstructuration fonctionne aussi directement <strong>dans les paramètres d&#x27;une fonction</strong> — très courant en TypeScript/React pour extraire des propriétés d&#x27;un objet de configuration ou de props ;</li>
+<li>ligne 16 : <span style="color: #9a3412">const { nom: n, prénom: p } = obj1</span> crée deux variables <span style="color: #9a3412">n</span> et <span style="color: #9a3412">p</span>, équivalent à <span style="color: #9a3412">const n = obj1.nom; const p = obj1.prénom</span> ;</li>
+<li>lignes 19-22, 24-27, 30-33 : la déstructuration fonctionne aussi directement <strong>dans les paramètres d&#x27;une fonction</strong> — très courant en TypeScript/React pour extraire des propriétés d&#x27;un objet de configuration ou de props ;</li>
 <li>ligne 33 : <span style="color: #9a3412">function h({ nom, prénom }: NomPrénom)</span> est un raccourci de <span style="color: #9a3412">{ nom: nom, prénom: prénom }</span> — quand le nom de la variable créée est identique au nom de la propriété, on peut l&#x27;omettre.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>npx tsx objets/obj-07.ts

@@ -999,8 +999,8 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>lignes 14-17 : <strong><span style="color: #9a3412">[setTimeout]</span></strong> admet deux paramètres : une fonction à exécuter, et un délai en millisecondes. Son exécution est <strong>instantanée</strong> : elle arme un minuteur et rend immédiatement la main, sans attendre la fin du délai ;</li>
-<li>ligne 19 : ce message s&#x27;affiche donc <strong>avant</strong> celui de la ligne 15, alors qu&#x27;il est écrit après dans le code ;</li>
-<li>ligne 22 : <span style="color: #9a3412">function heure(début?: moment.Moment): string</span> — le paramètre <span style="color: #9a3412">début</span> est optionnel (<span style="color: #9a3412">?</span>), typé <span style="color: #9a3412">moment.Moment</span> ; si fourni, la fonction calcule et ajoute une durée écoulée.</li>
+<li>ligne 20 : ce message s&#x27;affiche donc <strong>avant</strong> celui de la ligne 16, alors qu&#x27;il est écrit après dans le code ;</li>
+<li>ligne 23 : <span style="color: #9a3412">function heure(début?: moment.Moment): string</span> — le paramètre <span style="color: #9a3412">début</span> est optionnel (<span style="color: #9a3412">?</span>), typé <span style="color: #9a3412">moment.Moment</span> ; si fourni, la fonction calcule et ajoute une durée écoulée.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">npx</span><span class="w"> </span><span class="nx">tsx</span><span class="w"> </span><span class="k">async</span><span class="err">/async-01.ts</span>
 </code></pre></div>
@@ -1133,7 +1133,7 @@
 <a id="__codelineno-3-58" name="__codelineno-3-58"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 8 : <span style="color: #9a3412">import EventEmitter from &#x27;events&#x27;</span> — importe la classe qui permet d&#x27;émettre et d&#x27;écouter des événements ;</li>
+<li>ligne 9 : <span style="color: #9a3412">import EventEmitter from &#x27;events&#x27;</span> — importe la classe qui permet d&#x27;émettre et d&#x27;écouter des événements ;</li>
 <li>ligne 15 : <span style="color: #9a3412">const eventEmitter = new EventEmitter()</span> — un émetteur d&#x27;événements est instancié avec <span style="color: #9a3412">new</span> ;</li>
 <li>lignes 24 et 26 : la fonction encapsulée dans <span style="color: #9a3412">setTimeout</span> émet <strong>deux</strong> événements, <span style="color: #9a3412">timer1Success</span> et <span style="color: #9a3412">timer1Failure</span>, chacun avec sa propre donnée associée (ici, à titre de démonstration seulement — normalement une même tâche n&#x27;émettrait que l&#x27;un ou l&#x27;autre) ;</li>
 <li>lignes 29-37 : le code principal s&#x27;<strong>abonne</strong> à ces deux événements avec <span style="color: #9a3412">eventEmitter.on(nomÉvénement, callback)</span> — le callback ne s&#x27;exécutera qu&#x27;au moment où l&#x27;événement sera réellement émis, pas au moment de l&#x27;abonnement ;</li>
@@ -1285,7 +1285,7 @@
 <a id="__codelineno-6-65" name="__codelineno-6-65"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>lignes 41-45 : une double boucle purement synchrone, sans aucun rapport avec la tâche asynchrone, mais qui occupe le processeur pendant plusieurs secondes ;</li>
+<li>lignes 40-44 : une double boucle purement synchrone, sans aucun rapport avec la tâche asynchrone, mais qui occupe le processeur pendant plusieurs secondes ;</li>
 <li>le timer d&#x27;1 seconde a fini son délai bien avant la fin de cette boucle — mais l&#x27;événement qu&#x27;il a émis doit <strong>attendre</strong> que le code synchrone rende la main à la boucle d&#x27;événements pour être enfin traité.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nx">npx</span><span class="w"> </span><span class="nx">tsx</span><span class="w"> </span><span class="k">async</span><span class="err">/async-03.ts</span>
@@ -1506,9 +1506,9 @@
 <a id="__codelineno-10-92" name="__codelineno-10-92"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 20 : <span style="color: #9a3412">new Promise&lt;string&gt;(function (resolve) {...})</span> — TypeScript permet de préciser, via le paramètre générique <span style="color: #9a3412">&lt;string&gt;</span>, le type de la valeur que <span style="color: #9a3412">resolve</span> transmettra ; sans lui, ce type serait déduit <span style="color: #9a3412">unknown</span> ;</li>
+<li>ligne 18 : <span style="color: #9a3412">new Promise&lt;string&gt;(function (resolve) {...})</span> — TypeScript permet de préciser, via le paramètre générique <span style="color: #9a3412">&lt;string&gt;</span>, le type de la valeur que <span style="color: #9a3412">resolve</span> transmettra ; sans lui, ce type serait déduit <span style="color: #9a3412">unknown</span> ;</li>
 <li><span style="color: #9a3412">promise1</span> se résout avec succès après 1 seconde (<span style="color: #9a3412">resolve(&#x27;[réussite]&#x27;)</span>) ; <span style="color: #9a3412">promise2</span> échoue après 2 secondes (<span style="color: #9a3412">reject(&#x27;[échec]&#x27;)</span>) ;</li>
-<li>le code principal (ligne 78) se termine bien avant que les deux promesses aient un résultat — le script global, lui, continue jusqu&#x27;à ce qu&#x27;elles soient toutes deux réglées (*settled*).</li>
+<li>le code principal (ligne 75) se termine bien avant que les deux promesses aient un résultat — le script global, lui, continue jusqu&#x27;à ce qu&#x27;elles soient toutes deux réglées (*settled*).</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">npx</span><span class="w"> </span><span class="nx">tsx</span><span class="w"> </span><span class="k">async</span><span class="err">/async-04.ts</span>
 </code></pre></div>
@@ -1733,7 +1733,7 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>lignes 20 et 36 : les fonctions asynchrones sont typées <span style="color: #9a3412">Promise&lt;RésultatAsync&gt;</span> grâce à l&#x27;interface <span style="color: #9a3412">RésultatAsync</span> définie plus haut ;</li>
-<li>ligne 62 : <strong><span style="color: #9a3412">[Promise.all([...])]</span></strong> attend que <strong>toutes</strong> les promesses du tableau soient résolues avant d&#x27;exécuter son <span style="color: #9a3412">then</span> — dès que l&#x27;une échoue, son <span style="color: #9a3412">catch</span> s&#x27;exécute immédiatement, sans attendre les autres ;</li>
+<li>ligne 65 : <strong><span style="color: #9a3412">[Promise.all([...])]</span></strong> attend que <strong>toutes</strong> les promesses du tableau soient résolues avant d&#x27;exécuter son <span style="color: #9a3412">then</span> — dès que l&#x27;une échoue, son <span style="color: #9a3412">catch</span> s&#x27;exécute immédiatement, sans attendre les autres ;</li>
 <li>les deux tâches se déroulent <strong>en parallèle</strong> (leurs attentes respectives se chevauchent) : la durée totale (~2s) correspond à la plus longue des deux, pas à leur somme (~3s).</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nx">npx</span><span class="w"> </span><span class="nx">tsx</span><span class="w"> </span><span class="k">async</span><span class="err">/async-05.ts</span>
@@ -2032,10 +2032,10 @@
 <a id="__codelineno-16-137" name="__codelineno-16-137"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 79 : <span style="color: #9a3412">async function main(): Promise&lt;void&gt;</span> — une fonction taguée <span style="color: #9a3412">async</span> rend toujours une <span style="color: #9a3412">Promise</span>, même si son corps ne le montre pas explicitement ;</li>
-<li>ligne 87 : <span style="color: #9a3412">await async01(débutAsync01)</span> <strong>suspend</strong> l&#x27;exécution de <span style="color: #9a3412">main</span> jusqu&#x27;à ce que la promesse soit résolue, sans bloquer le reste du programme (le <span style="color: #9a3412">await</span> ne peut s&#x27;utiliser qu&#x27;à l&#x27;intérieur d&#x27;une fonction <span style="color: #9a3412">async</span>, ou au premier niveau d&#x27;un module — voir chapitre « Les modules », script <span style="color: #9a3412">import-04</span>) ;</li>
-<li>lignes 85-100 : exécution <strong>séquentielle</strong> — chaque <span style="color: #9a3412">await</span> attend la fin de la tâche précédente avant de lancer la suivante ; la durée totale est la <strong>somme</strong> des trois délais (~6s) ;</li>
-<li>lignes 106-113 : exécution <strong>en parallèle</strong>, avec <span style="color: #9a3412">await Promise.all([...])</span> — la durée totale est celle de la tâche <strong>la plus longue</strong> (~3s) ;</li>
+<li>ligne 72 : <span style="color: #9a3412">async function main(): Promise&lt;void&gt;</span> — une fonction taguée <span style="color: #9a3412">async</span> rend toujours une <span style="color: #9a3412">Promise</span>, même si son corps ne le montre pas explicitement ;</li>
+<li>ligne 79 : <span style="color: #9a3412">await async01(débutAsync01)</span> <strong>suspend</strong> l&#x27;exécution de <span style="color: #9a3412">main</span> jusqu&#x27;à ce que la promesse soit résolue, sans bloquer le reste du programme (le <span style="color: #9a3412">await</span> ne peut s&#x27;utiliser qu&#x27;à l&#x27;intérieur d&#x27;une fonction <span style="color: #9a3412">async</span>, ou au premier niveau d&#x27;un module — voir chapitre « Les modules », script <span style="color: #9a3412">import-04</span>) ;</li>
+<li>lignes 76-90 : exécution <strong>séquentielle</strong> — chaque <span style="color: #9a3412">await</span> attend la fin de la tâche précédente avant de lancer la suivante ; la durée totale est la <strong>somme</strong> des trois délais (~6s) ;</li>
+<li>lignes 102-111 : exécution <strong>en parallèle</strong>, avec <span style="color: #9a3412">await Promise.all([...])</span> — la durée totale est celle de la tâche <strong>la plus longue</strong> (~3s) ;</li>
 <li>un <span style="color: #9a3412">try</span>/<span style="color: #9a3412">catch</span> classique suffit à intercepter l&#x27;échec d&#x27;une promesse <span style="color: #9a3412">await</span>-ée — plus besoin de <span style="color: #9a3412">.catch()</span> chaîné comme aux scripts précédents.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nx">npx</span><span class="w"> </span><span class="nx">tsx</span><span class="w"> </span><span class="k">async</span><span class="err">/async-06.ts</span>

@@ -1011,8 +1011,8 @@
 <ul>
 <li>les types primitifs (<span style="color: #9a3412">number</span>, <span style="color: #9a3412">string</span>, <span style="color: #9a3412">boolean</span>) sont passés <strong>par valeur</strong> : modifier <span style="color: #9a3412">param</span> à l&#x27;intérieur de la fonction ne modifie jamais la variable d&#x27;origine (<span style="color: #9a3412">passage par référence = false</span> dans chaque cas) ;</li>
 <li>les tableaux, objets et fonctions sont passés <strong>par référence</strong> : <span style="color: #9a3412">param === tab</span> (ou <span style="color: #9a3412">obj</span>, ou <span style="color: #9a3412">f</span>) vaut <span style="color: #9a3412">true</span>, et une modification à l&#x27;intérieur de la fonction est bien visible à l&#x27;extérieur ;</li>
-<li>ligne 41 : <span style="color: #9a3412">function doSomethingWithObject(param: any)</span> — typé <span style="color: #9a3412">any</span> car on ajoute dynamiquement une propriété (<span style="color: #9a3412">unePropriétéNouvelle</span>) non prévue dans le type d&#x27;origine du tableau <span style="color: #9a3412">obj</span> ;</li>
-<li>ligne 51 : même chose pour <span style="color: #9a3412">doSomethingWithFunction</span> — on ajoute une propriété à la fonction elle-même, un comportement JavaScript un peu déroutant mais parfaitement valide (une fonction est aussi un objet).</li>
+<li>ligne 45 : <span style="color: #9a3412">function doSomethingWithObject(param: any)</span> — typé <span style="color: #9a3412">any</span> car on ajoute dynamiquement une propriété (<span style="color: #9a3412">unePropriétéNouvelle</span>) non prévue dans le type d&#x27;origine du tableau <span style="color: #9a3412">obj</span> ;</li>
+<li>ligne 58 : même chose pour <span style="color: #9a3412">doSomethingWithFunction</span> — on ajoute une propriété à la fonction elle-même, un comportement JavaScript un peu déroutant mais parfaitement valide (une fonction est aussi un objet).</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npx tsx fonctions/func-01.ts
 </code></pre></div>
@@ -1219,11 +1219,11 @@
 <a id="__codelineno-9-27" name="__codelineno-9-27"></a><span class="ow">new</span><span class="w"> </span><span class="p">(</span><span class="nx">g</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">any</span><span class="p">)().</span><span class="nx">show</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>lignes 5-9 : <span style="color: #9a3412">f</span> est une fonction « coquille vide », typée <span style="color: #9a3412">this: any</span> — cette annotation spéciale du premier paramètre indique à TypeScript le type de <span style="color: #9a3412">this</span> à l&#x27;intérieur de la fonction, nécessaire ici car des propriétés lui sont ajoutées de l&#x27;extérieur, un schéma que TypeScript ne peut pas déduire seul ;</li>
+<li>lignes 5-10 : <span style="color: #9a3412">f</span> est une fonction « coquille vide », typée <span style="color: #9a3412">this: any</span> — cette annotation spéciale du premier paramètre indique à TypeScript le type de <span style="color: #9a3412">this</span> à l&#x27;intérieur de la fonction, nécessaire ici car des propriétés lui sont ajoutées de l&#x27;extérieur, un schéma que TypeScript ne peut pas déduire seul ;</li>
 <li>lignes 12-15 : on donne, depuis l&#x27;extérieur, des propriétés à <span style="color: #9a3412">f</span> — <span style="color: #9a3412">(f as any).prop1 = ...</span> ;</li>
 <li>ligne 17 : on appelle <span style="color: #9a3412">f.show()</span>, et non <span style="color: #9a3412">f()</span> — c&#x27;est bien la notation d&#x27;utilisation d&#x27;un objet, pas d&#x27;un appel de fonction classique ;</li>
-<li>lignes 20-27 : <span style="color: #9a3412">g</span> définit <span style="color: #9a3412">this.prop2</span> et <span style="color: #9a3412">this.show</span> en son sein, comme le ferait un constructeur de classe ;</li>
-<li>ligne 29 : <span style="color: #9a3412">new (g as any)()</span> <strong>instancie</strong> <span style="color: #9a3412">g</span> comme une classe.</li>
+<li>lignes 20-25 : <span style="color: #9a3412">g</span> définit <span style="color: #9a3412">this.prop2</span> et <span style="color: #9a3412">this.show</span> en son sein, comme le ferait un constructeur de classe ;</li>
+<li>ligne 27 : <span style="color: #9a3412">new (g as any)()</span> <strong>instancie</strong> <span style="color: #9a3412">g</span> comme une classe.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>npx tsx fonctions/func-04.ts
 </code></pre></div>

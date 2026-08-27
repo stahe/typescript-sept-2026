@@ -1059,7 +1059,7 @@
 <ul>
 <li><strong><span style="color: #9a3412">[class]</span></strong> introduit la classe ; <strong><span style="color: #9a3412">[constructor]</span></strong> son constructeur — il ne peut y en avoir qu&#x27;un seul par classe ;</li>
 <li>lignes 4-6 : les champs <span style="color: #9a3412">_nom</span>, <span style="color: #9a3412">_prénom</span>, <span style="color: #9a3412">_âge</span> sont déclarés avec le modificateur <strong><span style="color: #9a3412">[private]</span></strong> — accessibles uniquement depuis l&#x27;intérieur de la classe, contrairement à une simple convention de nommage. Le <span style="color: #9a3412">!</span> (*definite assignment assertion*) indique à TypeScript que ces champs seront bien affectés avant toute lecture, même si ce n&#x27;est pas visible directement dans leur déclaration (c&#x27;est le constructeur, via les setters, qui s&#x27;en charge) ;</li>
-<li>lignes 18-35 : getters et setters — syntaxe identique à celle vue pour les objets littéraux (chapitre « Les objets littéraux », script <span style="color: #9a3412">obj-03</span>), mais intégrée à la classe ;</li>
+<li>lignes 16-35 : getters et setters — syntaxe identique à celle vue pour les objets littéraux (chapitre « Les objets littéraux », script <span style="color: #9a3412">obj-03</span>), mais intégrée à la classe ;</li>
 <li>ligne 46 : <span style="color: #9a3412">personne instanceof (Personne)</span> — on peut connaître le type exact d&#x27;une instance de classe, contrairement aux objets littéraux.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>npx tsx classes/class-01.ts
@@ -1233,8 +1233,8 @@
 <ul>
 <li>ligne 5 : <span style="color: #9a3412">import Personne from &#x27;./Personne.js&#x27;</span> — on importe la classe depuis son module. L&#x27;extension <span style="color: #9a3412">.js</span> (et non <span style="color: #9a3412">.ts</span>) est <strong>obligatoire</strong> avec la résolution de modules moderne de node, même si le fichier source est un <span style="color: #9a3412">.ts</span> (voir chapitre « Installation ») ;</li>
 <li>ligne 8 : <span style="color: #9a3412">class Enseignant extends Personne</span> — <span style="color: #9a3412">Enseignant</span> hérite de tous les membres de <span style="color: #9a3412">Personne</span>, et ajoute une propriété <span style="color: #9a3412">_discipline</span> avec son getter/setter ;</li>
-<li>ligne 13 : <span style="color: #9a3412">super(nom, prénom, âge)</span> appelle le constructeur de la classe parent, qui initialise <span style="color: #9a3412">_nom</span>, <span style="color: #9a3412">_prénom</span>, <span style="color: #9a3412">_âge</span> ;</li>
-<li>ligne 30 : <span style="color: #9a3412">enseignant instanceof Enseignant</span> — TypeScript/JavaScript connaît le type exact de l&#x27;instance, même après héritage.</li>
+<li>ligne 14 : <span style="color: #9a3412">super(nom, prénom, âge)</span> appelle le constructeur de la classe parent, qui initialise <span style="color: #9a3412">_nom</span>, <span style="color: #9a3412">_prénom</span>, <span style="color: #9a3412">_âge</span> ;</li>
+<li>ligne 31 : <span style="color: #9a3412">enseignant instanceof Enseignant</span> — TypeScript/JavaScript connaît le type exact de l&#x27;instance, même après héritage.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>npx tsx classes/class-02.ts
 </code></pre></div>
@@ -1432,8 +1432,8 @@
 <a id="__codelineno-14-23" name="__codelineno-14-23"></a><span class="n">show</span><span class="p">(</span><span class="n">new</span> <span class="n">Personne</span><span class="p">(</span><span class="s2">"Marple"</span><span class="p">,</span> <span class="s2">"Miss"</span><span class="p">,</span> <span class="mi">70</span><span class="p">));</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 6 : <span style="color: #9a3412">function show(personne: Personne): void</span> — la fonction attend un paramètre typé <span style="color: #9a3412">Personne</span>, mais accepte tout type <strong>dérivé</strong> (<span style="color: #9a3412">Enseignant</span>) — c&#x27;est le principe de substitution, fondamental en programmation orientée objet ;</li>
-<li>lignes 10-16 : <span style="color: #9a3412">instanceof</span> permet d&#x27;adapter le comportement au type <strong>réel</strong> de l&#x27;objet reçu, au-delà de son type déclaré.</li>
+<li>ligne 8 : <span style="color: #9a3412">function show(personne: Personne): void</span> — la fonction attend un paramètre typé <span style="color: #9a3412">Personne</span>, mais accepte tout type <strong>dérivé</strong> (<span style="color: #9a3412">Enseignant</span>) — c&#x27;est le principe de substitution, fondamental en programmation orientée objet ;</li>
+<li>lignes 9-18 : <span style="color: #9a3412">instanceof</span> permet d&#x27;adapter le comportement au type <strong>réel</strong> de l&#x27;objet reçu, au-delà de son type déclaré.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>npx tsx classes/class-04.ts
 </code></pre></div>
@@ -1639,7 +1639,7 @@
 <a id="__codelineno-17-94" name="__codelineno-17-94"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"prochainId() ="</span><span class="p">,</span><span class="w"> </span><span class="nx">GénérateurIdentifiant</span><span class="p">.</span><span class="nx">prochainId</span><span class="p">());</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li><strong><span style="color: #9a3412">[#solde]</span></strong>, <strong><span style="color: #9a3412">[#historique]</span></strong> : vrais champs privés — contrairement à <span style="color: #9a3412">_nom</span> au script <span style="color: #9a3412">class-01</span>, il est <strong>impossible</strong> d&#x27;y accéder depuis l&#x27;extérieur de la classe, même via <span style="color: #9a3412">compte[&#x27;#solde&#x27;]</span> (ligne 60), qui rend <span style="color: #9a3412">undefined</span> plutôt que la valeur réelle ;</li>
+<li><strong><span style="color: #9a3412">[#solde]</span></strong>, <strong><span style="color: #9a3412">[#historique]</span></strong> : vrais champs privés — contrairement à <span style="color: #9a3412">_nom</span> au script <span style="color: #9a3412">class-01</span>, il est <strong>impossible</strong> d&#x27;y accéder depuis l&#x27;extérieur de la classe, même via <span style="color: #9a3412">compte[&#x27;#solde&#x27;]</span> (ligne 69), qui rend <span style="color: #9a3412">undefined</span> plutôt que la valeur réelle ;</li>
 <li><strong><span style="color: #9a3412">[#ajouterHistorique]</span></strong> : une <strong>méthode privée</strong>, appelable uniquement depuis l&#x27;intérieur de la classe ;</li>
 <li><strong><span style="color: #9a3412">[static { ... }]</span></strong> : un <strong>bloc d&#x27;initialisation statique</strong> (ES2022), exécuté une seule fois au chargement de la classe — utile pour une initialisation plus complexe qu&#x27;une simple affectation ;</li>
 <li><strong><span style="color: #9a3412">[static #dernierId]</span></strong> : un champ <strong>statique privé</strong>, partagé par toutes les instances mais invisible de l&#x27;extérieur.</li>

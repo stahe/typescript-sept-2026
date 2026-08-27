@@ -1343,9 +1343,9 @@
 <a id="__codelineno-0-172" name="__codelineno-0-172"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">Dao1</span><span class="p">;</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>lignes 8-10 : la classe a trois propriétés privées : <span style="color: #9a3412">axios</span> (l&#x27;instance transmise par le code appelant), <span style="color: #9a3412">sessionCookieName</span> (le nom du cookie de session — <span style="color: #9a3412">PHPSESSID</span>, spécifique à PHP), <span style="color: #9a3412">sessionCookie</span> (le cookie effectivement reçu, mémorisé pour les requêtes suivantes) ;</li>
-<li>lignes 60-73 : <span style="color: #9a3412">calculerImpot(marié, enfants, salaire)</span> poste ces trois paramètres à <span style="color: #9a3412">main.php?action=calculer-impot</span>, et rend la réponse JSON du serveur sous forme d&#x27;objet TypeScript ;</li>
-<li>lignes 122-160 : <span style="color: #9a3412">getRemoteData</span> centralise l&#x27;exécution des requêtes : elle ajoute le cookie de session courant à chaque requête sortante (ligne 126), puis, après réception, recherche et mémorise un éventuel nouveau cookie de session dans l&#x27;entête <span style="color: #9a3412">Set-Cookie</span> de la réponse (lignes 141-159) — une gestion manuelle de ce qu&#x27;un navigateur ferait automatiquement.</li>
+<li>lignes 9-11 : la classe a trois propriétés privées : <span style="color: #9a3412">axios</span> (l&#x27;instance transmise par le code appelant), <span style="color: #9a3412">sessionCookieName</span> (le nom du cookie de session — <span style="color: #9a3412">PHPSESSID</span>, spécifique à PHP), <span style="color: #9a3412">sessionCookie</span> (le cookie effectivement reçu, mémorisé pour les requêtes suivantes) ;</li>
+<li>lignes 61-85 : <span style="color: #9a3412">calculerImpot(marié, enfants, salaire)</span> poste ces trois paramètres à <span style="color: #9a3412">main.php?action=calculer-impot</span>, et rend la réponse JSON du serveur sous forme d&#x27;objet TypeScript ;</li>
+<li>lignes 122-168 : <span style="color: #9a3412">getRemoteData</span> centralise l&#x27;exécution des requêtes : elle ajoute le cookie de session courant à chaque requête sortante (ligne 127), puis, après réception, recherche et mémorise un éventuel nouveau cookie de session dans l&#x27;entête <span style="color: #9a3412">Set-Cookie</span> de la réponse (lignes 143-165) — une gestion manuelle de ce qu&#x27;un navigateur ferait automatiquement.</li>
 </ul>
 <h3 id="1422-le-script-main1">14.2.2. <span style="color: #1f4d78">Le script [main1]</span></h3>
 <p>Ce script enchaîne une série d&#x27;appels au serveur via la classe <span style="color: #9a3412">Dao1</span> : initialisation de session, authentification, trois calculs d&#x27;impôt (en parallèle), liste des simulations, suppression de l&#x27;une d&#x27;elles :</p>
@@ -1454,9 +1454,9 @@
 <a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="n">main</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>lignes 9-10 : configuration par défaut d&#x27;axios — timeout de 2 secondes, URL de base de la version 14 du serveur ;</li>
-<li>lignes 26-30 : les trois calculs d&#x27;impôt sont demandés <strong>en parallèle</strong> avec <span style="color: #9a3412">Promise.all([...])</span> — l&#x27;exécution attend que les trois résultats soient tous obtenus ;</li>
-<li>lignes 46-48 : <span style="color: #9a3412">log</span> affiche la chaîne JSON d&#x27;un objet, indentée sur deux espaces, pour une lecture plus confortable.</li>
+<li>lignes 11-12 : configuration par défaut d&#x27;axios — timeout de 2 secondes, URL de base de la version 14 du serveur ;</li>
+<li>lignes 27-31 : les trois calculs d&#x27;impôt sont demandés <strong>en parallèle</strong> avec <span style="color: #9a3412">Promise.all([...])</span> — l&#x27;exécution attend que les trois résultats soient tous obtenus ;</li>
+<li>lignes 47-50 : <span style="color: #9a3412">log</span> affiche la chaîne JSON d&#x27;un objet, indentée sur deux espaces, pour une lecture plus confortable.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>npx tsx main1.ts
 </code></pre></div>
@@ -1876,8 +1876,8 @@
 <a id="__codelineno-6-191" name="__codelineno-6-191"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">Métier</span><span class="p">;</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>ligne 7 : <span style="color: #9a3412">taxAdminData: any</span> — la structure exacte des données envoyées par le serveur fiscal (taux, plafonds...) n&#x27;est pas documentée ; on reste donc volontairement souple sur ce type plutôt que d&#x27;en deviner une interface incertaine ;</li>
-<li>contrairement à la version PHP, le constructeur (ligne 10) ne reçoit <strong>plus</strong> d&#x27;instance de la couche <span style="color: #9a3412">dao</span> — la couche <span style="color: #9a3412">métier</span>, ici, est totalement indépendante du réseau ; c&#x27;est le code appelant qui lui fournit directement les données fiscales ;</li>
+<li>ligne 8 : <span style="color: #9a3412">taxAdminData: any</span> — la structure exacte des données envoyées par le serveur fiscal (taux, plafonds...) n&#x27;est pas documentée ; on reste donc volontairement souple sur ce type plutôt que d&#x27;en deviner une interface incertaine ;</li>
+<li>contrairement à la version PHP, le constructeur (ligne 11) ne reçoit <strong>plus</strong> d&#x27;instance de la couche <span style="color: #9a3412">dao</span> — la couche <span style="color: #9a3412">métier</span>, ici, est totalement indépendante du réseau ; c&#x27;est le code appelant qui lui fournit directement les données fiscales ;</li>
 <li>la méthode <span style="color: #9a3412">executeBatchImpots</span> du code PHP original n&#x27;est pas reprise : elle enregistrait des résultats sur le système de fichiers, une opération impossible à reproduire à l&#x27;identique dans un navigateur.</li>
 </ul>
 <h3 id="1432-la-classe-dao2">14.3.2. <span style="color: #1f4d78">La classe [Dao2]</span></h3>
@@ -2260,8 +2260,8 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>ligne 30 : <span style="color: #9a3412">taxAdminData = response.réponse</span> — les données fiscales, reçues une seule fois du serveur, sont ensuite réutilisées localement pour tous les calculs ;</li>
-<li>ligne 37 : <span style="color: #9a3412">const métier = new Métier(taxAdminData)</span> — la couche métier est instanciée avec ces données, sans jamais solliciter à nouveau le réseau ;</li>
-<li>lignes 40-43 : les trois calculs d&#x27;impôt sont désormais <strong>synchrones</strong>, exécutés directement dans le navigateur ou node.js, sans passer par le serveur.</li>
+<li>ligne 39 : <span style="color: #9a3412">const métier = new Métier(taxAdminData)</span> — la couche métier est instanciée avec ces données, sans jamais solliciter à nouveau le réseau ;</li>
+<li>lignes 44-46 : les trois calculs d&#x27;impôt sont désormais <strong>synchrones</strong>, exécutés directement dans le navigateur ou node.js, sans passer par le serveur.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>npx tsx main2.ts
 </code></pre></div>
@@ -2548,7 +2548,7 @@
 <ul>
 <li>lignes 3-4 : <span style="color: #9a3412">import &quot;core-js/stable&quot;</span> et <span style="color: #9a3412">import &quot;regenerator-runtime/runtime&quot;</span> — les polyfills nécessaires pour que le code compilé fonctionne sur des navigateurs qui n&#x27;implémentent pas encore nativement toutes les fonctionnalités récentes du langage ;</li>
 <li>lignes 7-11 : <strong><span style="color: #9a3412">[correction d&#x27;une coquille]</span></strong> — le script JavaScript original de 2019 importait <span style="color: #9a3412">./Métier</span> (avec un accent), alors que le fichier s&#x27;appelle <span style="color: #9a3412">Metier</span> (sans accent). webpack/babel toléraient cette différence ; <strong>TypeScript, lui, ne la tolère pas</strong>, et cette coquille a dû être corrigée lors de la conversion du projet ;</li>
-<li>ligne 18 : <span style="color: #9a3412">axios.defaults.withCredentials = true</span> — indispensable dans un navigateur pour que les cookies de session soient transmis automatiquement entre les requêtes, ce que le code faisait manuellement dans les versions précédentes (node.js n&#x27;a pas cette notion de cookie de navigateur).</li>
+<li>ligne 19 : <span style="color: #9a3412">axios.defaults.withCredentials = true</span> — indispensable dans un navigateur pour que les cookies de session soient transmis automatiquement entre les requêtes, ce que le code faisait manuellement dans les versions précédentes (node.js n&#x27;a pas cette notion de cookie de navigateur).</li>
 </ul>
 <h3 id="1443-compilation-et-execution">14.4.3. <span style="color: #1f4d78">Compilation et exécution</span></h3>
 <p>Le fichier <span style="color: #9a3412">package.json</span> définit deux tâches npm :</p>

@@ -935,7 +935,7 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>ligne 4 : <span style="color: #9a3412">import moment from &#x27;moment&#x27;</span> — import d&#x27;une bibliothèque tierce, exactement comme <span style="color: #9a3412">sprintf-js</span> au chapitre « Les chaînes de caractères » ;</li>
-<li>à chaque tour de boucle, si le nombre de millisecondes courant est pair, une erreur est levée (ligne 20) et interceptée par le <span style="color: #9a3412">catch</span> ; sinon, le message « pas d&#x27;erreur » s&#x27;affiche ;</li>
+<li>à chaque tour de boucle, si le nombre de millisecondes courant est pair, une erreur est levée (ligne 21) et interceptée par le <span style="color: #9a3412">catch</span> ; sinon, le message « pas d&#x27;erreur » s&#x27;affiche ;</li>
 <li>la clause <strong><span style="color: #9a3412">[finally]</span></strong> s&#x27;exécute systématiquement, qu&#x27;il y ait eu erreur ou non.</li>
 </ul>
 <p>Ce script dépend de l&#x27;heure exacte d&#x27;exécution : le résultat ci-dessous (obtenu par une exécution réelle) sera donc <strong>différent à chaque lancement</strong> — seul le principe (finally toujours exécuté) est garanti :</p>
@@ -1424,8 +1424,8 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>lignes 17-22 : quand on attrape une erreur technique de bas niveau pour la re-lancer sous une forme plus explicite, le 2ᵉ paramètre <span style="color: #9a3412">{ cause }</span> de <span style="color: #9a3412">new Error(...)</span> permet de <strong>conserver la trace de l&#x27;erreur d&#x27;origine</strong>, sans quoi elle serait perdue (comportement d&#x27;avant 2022) ;</li>
-<li>ligne 30 : <span style="color: #9a3412">erreur.cause?.message</span> récupère le message de l&#x27;erreur d&#x27;origine, très utile pour le débogage ;</li>
-<li>lignes 39-51 : une <strong>classe d&#x27;erreur personnalisée</strong> (<span style="color: #9a3412">ErreurValidation extends Error</span>) permet de créer ses propres types d&#x27;erreur métier, distinguables ensuite avec <span style="color: #9a3412">instanceof</span> (ligne 62), exactement comme <span style="color: #9a3412">ReferenceError</span> ou <span style="color: #9a3412">RangeError</span> au script précédent.</li>
+<li>ligne 31 : <span style="color: #9a3412">erreur.cause?.message</span> récupère le message de l&#x27;erreur d&#x27;origine, très utile pour le débogage ;</li>
+<li>lignes 41-53 : une <strong>classe d&#x27;erreur personnalisée</strong> (<span style="color: #9a3412">ErreurValidation extends Error</span>) permet de créer ses propres types d&#x27;erreur métier, distinguables ensuite avec <span style="color: #9a3412">instanceof</span> (ligne 72), exactement comme <span style="color: #9a3412">ReferenceError</span> ou <span style="color: #9a3412">RangeError</span> au script précédent.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>npx tsx exceptions/excep-04.ts
 </code></pre></div>
