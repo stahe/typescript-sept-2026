@@ -869,39 +869,70 @@
 <p>TypeScript hérite du système d&#x27;exceptions de JavaScript, plutôt sommaire : l&#x27;instruction <strong><span style="color: #9a3412">[throw]</span></strong> signale une erreur, et la structure <strong><span style="color: #9a3412">[try / catch / finally]</span></strong> l&#x27;intercepte. Les scripts de ce chapitre se trouvent dans le dossier <strong><span style="color: #9a3412">[exceptions]</span></strong> du projet.</p>
 <h2 id="91-script-excep-01">9.1. <span style="color: #2e74b5">script [excep-01]</span></h2>
 <p>Ce script affiche l&#x27;heure du moment sous la forme heures:minutes:secondes:millisecondes, à l&#x27;aide de la bibliothèque <strong><span style="color: #9a3412">[moment.js]</span></strong> (<span style="color: #9a3412">npm install moment</span>), puis illustre le fonctionnement de <span style="color: #9a3412">try</span>/<span style="color: #9a3412">catch</span>/<span style="color: #9a3412">finally</span> en déclenchant une erreur selon la parité des millisecondes courantes :</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">  </span><span class="mf">1</span><span class="w">  </span><span class="s1">'use strict'</span><span class="p">;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="mf">2</span><span class="w">  </span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="mf">3</span><span class="w">  </span><span class="c1">// package moment</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="mf">4</span><span class="w">  </span><span class="k">import</span><span class="w"> </span><span class="nx">moment</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'moment'</span><span class="p">;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="mf">5</span><span class="w">  </span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="mf">6</span><span class="w">  </span><span class="c1">// principe du try / catch / finally</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="mf">7</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="mf">8</span><span class="w">    </span><span class="c1">// date - heure du moment courant</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="mf">9</span><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w"> </span><span class="mf">10</span><span class="w">    </span><span class="c1">// formatage heure pour avoir les millisecondes</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w"> </span><span class="mf">11</span><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">moment</span><span class="p">(</span><span class="nx">now</span><span class="p">).</span><span class="nx">format</span><span class="p">(</span><span class="s2">"HH:mm:ss:SSS"</span><span class="p">);</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w"> </span><span class="mf">12</span><span class="w">    </span><span class="c1">// les millisecondes</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w"> </span><span class="mf">13</span><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">milli</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">3</span><span class="p">));</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w"> </span><span class="mf">14</span><span class="w">    </span><span class="c1">// affichage</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w"> </span><span class="mf">15</span><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------itération n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="s2">"à"</span><span class="p">,</span><span class="w"> </span><span class="nx">time</span><span class="p">);</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w"> </span><span class="mf">16</span><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w"> </span><span class="mf">17</span><span class="w">      </span><span class="c1">// nbre aléatoire</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w"> </span><span class="mf">18</span><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">nbre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">milli</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w"> </span><span class="mf">19</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">nbre</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w"> </span><span class="mf">20</span><span class="w">        </span><span class="c1">// lancer un msg d'erreur</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w"> </span><span class="mf">21</span><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="s2">"erreur"</span><span class="p">;</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w"> </span><span class="mf">22</span><span class="w">      </span><span class="p">}</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w"> </span><span class="mf">23</span><span class="w">      </span><span class="c1">// si on arrive ici c'est qu'il n'y a pas eu d'erreur</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w"> </span><span class="mf">24</span><span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"pas d'erreur"</span><span class="p">);</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w"> </span><span class="mf">25</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w"> </span><span class="mf">26</span><span class="w">      </span><span class="c1">// si on arrive ici, c'est qu'il y a eu erreur</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w"> </span><span class="mf">27</span><span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur1="</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w"> </span><span class="mf">28</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w"> </span><span class="mf">29</span><span class="w">      </span><span class="c1">// exécuté dans tous les cas erreur ou pas</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w"> </span><span class="mf">30</span><span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"finally"</span><span class="p">)</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w"> </span><span class="mf">31</span><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w"> </span><span class="mf">32</span><span class="w">  </span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="s1">'use strict'</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1">// package moment</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">import</span><span class="w"> </span><span class="nx">moment</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'moment'</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="c1">// principe du try / catch / finally</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">  </span><span class="c1">// date - heure du moment courant</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">  </span><span class="c1">// formatage heure pour avoir les millisecondes</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">moment</span><span class="p">(</span><span class="nx">now</span><span class="p">).</span><span class="nx">format</span><span class="p">(</span><span class="s2">"HH:mm:ss:SSS"</span><span class="p">);</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">  </span><span class="c1">// les millisecondes</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">milli</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">3</span><span class="p">));</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">  </span><span class="c1">// affichage</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------itération n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="s2">"à"</span><span class="p">,</span><span class="w"> </span><span class="nx">time</span><span class="p">);</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="c1">// nbre aléatoire</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">nbre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">milli</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">nbre</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">      </span><span class="c1">// lancer un msg d'erreur</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="s2">"erreur"</span><span class="p">;</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="w">    </span><span class="c1">// si on arrive ici c'est qu'il n'y a pas eu d'erreur</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"pas d'erreur"</span><span class="p">);</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="w">    </span><span class="c1">// si on arrive ici, c'est qu'il y a eu erreur</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur1="</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="w">    </span><span class="c1">// exécuté dans tous les cas erreur ou pas</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"finally"</span><span class="p">)</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
 <ul>
 <li>ligne 4 : <span style="color: #9a3412">import moment from &#x27;moment&#x27;</span> — import d&#x27;une bibliothèque tierce, exactement comme <span style="color: #9a3412">sprintf-js</span> au chapitre « Les chaînes de caractères » ;</li>
 <li>à chaque tour de boucle, si le nombre de millisecondes courant est pair, une erreur est levée (ligne 20) et interceptée par le <span style="color: #9a3412">catch</span> ; sinon, le message « pas d&#x27;erreur » s&#x27;affiche ;</li>
@@ -911,90 +942,168 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npx tsx exceptions/excep-01.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>  1  --------------------itération n°  0 à 07:40:11:070
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  2  erreur1= erreur
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  3  finally
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  4  --------------------itération n°  1 à 07:40:11:076
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  5  erreur1= erreur
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  6  finally
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  7  --------------------itération n°  2 à 07:40:11:076
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  8  erreur1= erreur
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  9  finally
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a> 10  --------------------itération n°  3 à 07:40:11:077
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a> 11  pas d'erreur
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a> 12  finally
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a> 13  --------------------itération n°  4 à 07:40:11:077
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a> 14  pas d'erreur
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a> 15  finally
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a> 16  --------------------itération n°  5 à 07:40:11:077
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a> 17  pas d'erreur
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a> 18  finally
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a> 19  --------------------itération n°  6 à 07:40:11:077
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a> 20  pas d'erreur
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a> 21  finally
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a> 22  --------------------itération n°  7 à 07:40:11:077
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a> 23  pas d'erreur
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a> 24  finally
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a> 25  --------------------itération n°  8 à 07:40:11:077
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a> 26  pas d'erreur
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a> 27  finally
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a> 28  --------------------itération n°  9 à 07:40:11:077
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a> 29  pas d'erreur
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a> 30  finally
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span>
+<span class="normal"><a href="#__codelineno-2-26">26</a></span>
+<span class="normal"><a href="#__codelineno-2-27">27</a></span>
+<span class="normal"><a href="#__codelineno-2-28">28</a></span>
+<span class="normal"><a href="#__codelineno-2-29">29</a></span>
+<span class="normal"><a href="#__codelineno-2-30">30</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>--------------------itération n°  0 à 07:40:11:070
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>erreur1= erreur
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>finally
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>--------------------itération n°  1 à 07:40:11:076
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>erreur1= erreur
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>finally
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>--------------------itération n°  2 à 07:40:11:076
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>erreur1= erreur
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>finally
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>--------------------itération n°  3 à 07:40:11:077
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>pas d'erreur
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>finally
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>--------------------itération n°  4 à 07:40:11:077
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a>pas d'erreur
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a>finally
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>--------------------itération n°  5 à 07:40:11:077
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a>pas d'erreur
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a>finally
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a>--------------------itération n°  6 à 07:40:11:077
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a>pas d'erreur
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a>finally
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a>--------------------itération n°  7 à 07:40:11:077
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a>pas d'erreur
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a>finally
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a>--------------------itération n°  8 à 07:40:11:077
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a>pas d'erreur
+<a id="__codelineno-2-27" name="__codelineno-2-27"></a>finally
+<a id="__codelineno-2-28" name="__codelineno-2-28"></a>--------------------itération n°  9 à 07:40:11:077
+<a id="__codelineno-2-29" name="__codelineno-2-29"></a>pas d'erreur
+<a id="__codelineno-2-30" name="__codelineno-2-30"></a>finally
+</code></pre></div></td></tr></table></div>
 <h2 id="92-script-excep-02">9.2. <span style="color: #2e74b5">script [excep-02]</span></h2>
 <p>Ce script montre que <strong><span style="color: #9a3412">[throw]</span></strong> peut lancer <strong>n&#x27;importe quel type de donnée</strong> — chaîne, tableau, objet, instance d&#x27;<span style="color: #9a3412">Error</span> — et que cette donnée est récupérée intégralement par la clause <span style="color: #9a3412">catch</span> :</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">  </span><span class="mf">1</span><span class="w">  </span><span class="s1">'use strict'</span><span class="p">;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="mf">2</span><span class="w">  </span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="mf">3</span><span class="w">  </span><span class="c1">// on peut "lancer" (throw) à peu près n'importe quoi pour signaler une erreur</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="mf">4</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="mf">5</span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="mf">6</span><span class="w">  </span><span class="c1">// lancer une chaîne de caractères</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="mf">7</span><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="mf">8</span><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="s2">"msg d'erreur"</span><span class="p">;</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="mf">9</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w"> </span><span class="mf">10</span><span class="w">    </span><span class="c1">// il y a eu erreur</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w"> </span><span class="mf">11</span><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w"> </span><span class="mf">12</span><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w"> </span><span class="mf">13</span><span class="w">  </span><span class="c1">// lancer un objet littéral</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w"> </span><span class="mf">14</span><span class="w">  </span><span class="nx">i</span><span class="o">++</span><span class="p">;</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w"> </span><span class="mf">15</span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w"> </span><span class="mf">16</span><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w"> </span><span class="mf">17</span><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">]</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w"> </span><span class="mf">18</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w"> </span><span class="mf">19</span><span class="w">    </span><span class="c1">// il y a eu erreur</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w"> </span><span class="mf">20</span><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w"> </span><span class="mf">21</span><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w"> </span><span class="mf">22</span><span class="w">  </span><span class="c1">// lancer un objet</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w"> </span><span class="mf">23</span><span class="w">  </span><span class="nx">i</span><span class="o">++</span><span class="p">;</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w"> </span><span class="mf">24</span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w"> </span><span class="mf">25</span><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w"> </span><span class="mf">26</span><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">nom</span><span class="o">:</span><span class="w"> </span><span class="s2">"hercule"</span><span class="p">,</span><span class="w"> </span><span class="nx">pays</span><span class="o">:</span><span class="w"> </span><span class="s2">"grèce antique"</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w"> </span><span class="mf">27</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w"> </span><span class="mf">28</span><span class="w">    </span><span class="c1">// il y a eu erreur</span>
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w"> </span><span class="mf">29</span><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
-<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w"> </span><span class="mf">30</span><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w"> </span><span class="mf">31</span><span class="w">  </span><span class="c1">// lancer un type Error</span>
-<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w"> </span><span class="mf">32</span><span class="w">  </span><span class="nx">i</span><span class="o">++</span><span class="p">;</span>
-<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w"> </span><span class="mf">33</span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
-<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="w"> </span><span class="mf">34</span><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="w"> </span><span class="mf">35</span><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"erreur de connexion au réseau"</span><span class="p">);</span>
-<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="w"> </span><span class="mf">36</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="w"> </span><span class="mf">37</span><span class="w">    </span><span class="c1">// il y a eu erreur</span>
-<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="w"> </span><span class="mf">38</span><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
-<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="w"> </span><span class="mf">39</span><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="w"> </span><span class="mf">40</span><span class="w">  </span><span class="c1">// lancer un type Error</span>
-<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="w"> </span><span class="mf">41</span><span class="w">  </span><span class="nx">i</span><span class="o">++</span><span class="p">;</span>
-<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="w"> </span><span class="mf">42</span><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
-<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="w"> </span><span class="mf">43</span><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="w"> </span><span class="mf">44</span><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"erreur de connexion au réseau"</span><span class="p">);</span>
-<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a><span class="w"> </span><span class="mf">45</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a><span class="w"> </span><span class="mf">46</span><span class="w">    </span><span class="c1">// il y a eu erreur - le message est dans [error.message]</span>
-<a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a><span class="w"> </span><span class="mf">47</span><span class="w">    </span><span class="c1">// [any] car TypeScript type les variables catch en [unknown] par défaut (voir les autres</span>
-<a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a><span class="w"> </span><span class="mf">48</span><span class="w">    </span><span class="c1">// blocs try/catch ci-dessus, où il suffit d'afficher [error] sans accéder à une propriété)</span>
-<a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a><span class="w"> </span><span class="mf">49</span><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur.message=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type(error)="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
-<a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a><span class="w"> </span><span class="mf">50</span><span class="w">  </span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span>
+<span class="normal"><a href="#__codelineno-3-32">32</a></span>
+<span class="normal"><a href="#__codelineno-3-33">33</a></span>
+<span class="normal"><a href="#__codelineno-3-34">34</a></span>
+<span class="normal"><a href="#__codelineno-3-35">35</a></span>
+<span class="normal"><a href="#__codelineno-3-36">36</a></span>
+<span class="normal"><a href="#__codelineno-3-37">37</a></span>
+<span class="normal"><a href="#__codelineno-3-38">38</a></span>
+<span class="normal"><a href="#__codelineno-3-39">39</a></span>
+<span class="normal"><a href="#__codelineno-3-40">40</a></span>
+<span class="normal"><a href="#__codelineno-3-41">41</a></span>
+<span class="normal"><a href="#__codelineno-3-42">42</a></span>
+<span class="normal"><a href="#__codelineno-3-43">43</a></span>
+<span class="normal"><a href="#__codelineno-3-44">44</a></span>
+<span class="normal"><a href="#__codelineno-3-45">45</a></span>
+<span class="normal"><a href="#__codelineno-3-46">46</a></span>
+<span class="normal"><a href="#__codelineno-3-47">47</a></span>
+<span class="normal"><a href="#__codelineno-3-48">48</a></span>
+<span class="normal"><a href="#__codelineno-3-49">49</a></span>
+<span class="normal"><a href="#__codelineno-3-50">50</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="s1">'use strict'</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="c1">// on peut "lancer" (throw) à peu près n'importe quoi pour signaler une erreur</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="c1">// lancer une chaîne de caractères</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">  </span><span class="k">throw</span><span class="w"> </span><span class="s2">"msg d'erreur"</span><span class="p">;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">  </span><span class="c1">// il y a eu erreur</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="p">}</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="c1">// lancer un objet littéral</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">  </span><span class="k">throw</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">]</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">  </span><span class="c1">// il y a eu erreur</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="p">}</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="c1">// lancer un objet</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">  </span><span class="k">throw</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">nom</span><span class="o">:</span><span class="w"> </span><span class="s2">"hercule"</span><span class="p">,</span><span class="w"> </span><span class="nx">pays</span><span class="o">:</span><span class="w"> </span><span class="s2">"grèce antique"</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">  </span><span class="c1">// il y a eu erreur</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="p">}</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="c1">// lancer un type Error</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32"></a><span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35"></a><span class="w">  </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"erreur de connexion au réseau"</span><span class="p">);</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-37" name="__codelineno-3-37"></a><span class="w">  </span><span class="c1">// il y a eu erreur</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
+<a id="__codelineno-3-39" name="__codelineno-3-39"></a><span class="p">}</span>
+<a id="__codelineno-3-40" name="__codelineno-3-40"></a><span class="c1">// lancer un type Error</span>
+<a id="__codelineno-3-41" name="__codelineno-3-41"></a><span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-3-42" name="__codelineno-3-42"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"--------------------essai n° "</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span>
+<a id="__codelineno-3-43" name="__codelineno-3-43"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-44" name="__codelineno-3-44"></a><span class="w">  </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"erreur de connexion au réseau"</span><span class="p">);</span>
+<a id="__codelineno-3-45" name="__codelineno-3-45"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-46" name="__codelineno-3-46"></a><span class="w">  </span><span class="c1">// il y a eu erreur - le message est dans [error.message]</span>
+<a id="__codelineno-3-47" name="__codelineno-3-47"></a><span class="w">  </span><span class="c1">// [any] car TypeScript type les variables catch en [unknown] par défaut (voir les autres</span>
+<a id="__codelineno-3-48" name="__codelineno-3-48"></a><span class="w">  </span><span class="c1">// blocs try/catch ci-dessus, où il suffit d'afficher [error] sans accéder à une propriété)</span>
+<a id="__codelineno-3-49" name="__codelineno-3-49"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur.message=["</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="s2">"], type(error)="</span><span class="p">,</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
+<a id="__codelineno-3-50" name="__codelineno-3-50"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
 <ul>
 <li><strong><span style="color: #9a3412">[Error]</span></strong> est une classe intégrée dont le constructeur admet un message d&#x27;erreur comme 1er paramètre, récupérable dans <span style="color: #9a3412">error.message</span> ;</li>
 <li>TypeScript type par défaut la variable de <span style="color: #9a3412">catch</span> en <span style="color: #9a3412">unknown</span> (voir la remarque de la ligne 47) : accéder à une propriété comme <span style="color: #9a3412">.message</span> exige alors soit une vérification de type (<span style="color: #9a3412">instanceof</span>, voir script suivant), soit une annotation explicite <span style="color: #9a3412">catch (error: any)</span> comme à la ligne 47 ici ;</li>
@@ -1003,169 +1112,316 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>npx tsx exceptions/excep-02.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>  1  --------------------essai n°  0
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  2  erreur=[ msg d'erreur ], type= string
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  3  --------------------essai n°  1
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  4  erreur=[ [ 1, 2, 3 ] ], type= object
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  5  --------------------essai n°  2
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  6  erreur=[ { nom: 'hercule', pays: 'grèce antique' } ], type= object
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  7  --------------------essai n°  3
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  8  erreur=[ Error: erreur de connexion au réseau
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  9      at exceptions/excep-02.ts:35:9 ], type= object
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a> 10  --------------------essai n°  4
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a> 11  erreur.message=[ erreur de connexion au réseau ], type(error)= object
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>--------------------essai n°  0
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>erreur=[ msg d'erreur ], type= string
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>--------------------essai n°  1
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>erreur=[ [ 1, 2, 3 ] ], type= object
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>--------------------essai n°  2
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>erreur=[ { nom: 'hercule', pays: 'grèce antique' } ], type= object
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>--------------------essai n°  3
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>erreur=[ Error: erreur de connexion au réseau
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>    at exceptions/excep-02.ts:35:9 ], type= object
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a>--------------------essai n°  4
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>erreur.message=[ erreur de connexion au réseau ], type(error)= object
+</code></pre></div></td></tr></table></div>
 <h2 id="93-script-excep-03">9.3. <span style="color: #2e74b5">script [excep-03]</span></h2>
 <p>Ce script montre comment <strong>différencier</strong>, dans un <span style="color: #9a3412">catch</span>, le type précis d&#x27;erreur intercepté, grâce à l&#x27;opérateur <strong><span style="color: #9a3412">[instanceof]</span></strong> :</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>  <span class="mi">1</span>  <span class="s1">'use strict'</span><span class="p">;</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  <span class="mi">2</span>  
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  <span class="mi">3</span>  <span class="o">//</span> <span class="n">package</span> <span class="n">moment</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  <span class="mi">4</span>  <span class="kn">import</span><span class="w"> </span><span class="nn">moment</span> <span class="kn">from</span><span class="w"> </span><span class="s1">'moment'</span><span class="p">;</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  <span class="mi">5</span>  
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  <span class="mi">6</span>  <span class="o">//</span> <span class="n">différencier</span> <span class="n">l</span><span class="s1">'instance d'</span><span class="n">Error</span> <span class="n">reçue</span> <span class="n">dans</span> <span class="n">un</span> <span class="p">[</span><span class="n">catch</span><span class="p">]</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  <span class="mi">7</span>  <span class="k">for</span> <span class="p">(</span><span class="n">let</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  <span class="mi">8</span>    <span class="o">//</span> <span class="n">date</span> <span class="o">-</span> <span class="n">heure</span> <span class="n">du</span> <span class="n">moment</span> <span class="n">courant</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  <span class="mi">9</span>    <span class="n">const</span> <span class="n">now</span> <span class="o">=</span> <span class="n">Date</span><span class="o">.</span><span class="n">now</span><span class="p">();</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a> <span class="mi">10</span>    <span class="o">//</span> <span class="n">formatage</span> <span class="n">heure</span> <span class="n">pour</span> <span class="n">avoir</span> <span class="n">les</span> <span class="n">millisecondes</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a> <span class="mi">11</span>    <span class="n">const</span> <span class="n">time</span> <span class="o">=</span> <span class="n">moment</span><span class="p">(</span><span class="n">now</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">"HH:mm:ss:SSS"</span><span class="p">);</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a> <span class="mi">12</span>    <span class="o">//</span> <span class="n">les</span> <span class="n">millisecondes</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a> <span class="mi">13</span>    <span class="n">const</span> <span class="n">milli</span> <span class="o">=</span> <span class="n">Number</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">substr</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">3</span><span class="p">));</span>
-<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a> <span class="mi">14</span>    <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"--------------------itération n° "</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a> <span class="mi">15</span>    <span class="k">try</span> <span class="p">{</span>
-<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a> <span class="mi">16</span>      <span class="o">//</span> <span class="n">nbre</span> <span class="n">aléatoire</span>
-<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a> <span class="mi">17</span>      <span class="n">const</span> <span class="n">nbre</span> <span class="o">=</span> <span class="n">milli</span> <span class="o">%</span> <span class="mi">3</span><span class="p">;</span>
-<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a> <span class="mi">18</span>      <span class="n">switch</span> <span class="p">(</span><span class="n">nbre</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a> <span class="mi">19</span>        <span class="n">case</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a> <span class="mi">20</span>          <span class="n">throw</span> <span class="n">new</span> <span class="ne">ReferenceError</span><span class="p">(</span><span class="s2">"erreur 1"</span><span class="p">);</span>
-<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a> <span class="mi">21</span>        <span class="n">case</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a> <span class="mi">22</span>          <span class="n">throw</span> <span class="n">new</span> <span class="n">RangeError</span><span class="p">(</span><span class="s2">"erreur 2"</span><span class="p">);</span>
-<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a> <span class="mi">23</span>        <span class="n">default</span><span class="p">:</span>
-<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a> <span class="mi">24</span>          <span class="n">throw</span> <span class="n">new</span> <span class="n">EvalError</span><span class="p">(</span><span class="s2">"erreur 3"</span><span class="p">);</span>
-<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a> <span class="mi">25</span>      <span class="p">}</span>
-<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a> <span class="mi">26</span>    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a> <span class="mi">27</span>      <span class="o">//</span> <span class="n">il</span> <span class="n">y</span> <span class="n">a</span> <span class="n">eu</span> <span class="n">erreur</span>
-<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a> <span class="mi">28</span>      <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="n">instanceof</span> <span class="ne">ReferenceError</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a> <span class="mi">29</span>        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"ReferenceError :"</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">);</span>
-<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a> <span class="mi">30</span>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a> <span class="mi">31</span>        <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="n">instanceof</span> <span class="n">RangeError</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a> <span class="mi">32</span>          <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"RangeError :"</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">);</span>
-<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a> <span class="mi">33</span>        <span class="p">}</span>
-<a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a> <span class="mi">34</span>        <span class="k">else</span> <span class="p">{</span>
-<a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a> <span class="mi">35</span>          <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="n">instanceof</span> <span class="n">EvalError</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a> <span class="mi">36</span>            <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"EvalError :"</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">);</span>
-<a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a> <span class="mi">37</span>          <span class="p">}</span>
-<a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a> <span class="mi">38</span>        <span class="p">}</span>
-<a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a> <span class="mi">39</span>      <span class="p">}</span>
-<a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a> <span class="mi">40</span>    <span class="p">}</span>
-<a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a> <span class="mi">41</span>  <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span>
+<span class="normal"><a href="#__codelineno-6-16">16</a></span>
+<span class="normal"><a href="#__codelineno-6-17">17</a></span>
+<span class="normal"><a href="#__codelineno-6-18">18</a></span>
+<span class="normal"><a href="#__codelineno-6-19">19</a></span>
+<span class="normal"><a href="#__codelineno-6-20">20</a></span>
+<span class="normal"><a href="#__codelineno-6-21">21</a></span>
+<span class="normal"><a href="#__codelineno-6-22">22</a></span>
+<span class="normal"><a href="#__codelineno-6-23">23</a></span>
+<span class="normal"><a href="#__codelineno-6-24">24</a></span>
+<span class="normal"><a href="#__codelineno-6-25">25</a></span>
+<span class="normal"><a href="#__codelineno-6-26">26</a></span>
+<span class="normal"><a href="#__codelineno-6-27">27</a></span>
+<span class="normal"><a href="#__codelineno-6-28">28</a></span>
+<span class="normal"><a href="#__codelineno-6-29">29</a></span>
+<span class="normal"><a href="#__codelineno-6-30">30</a></span>
+<span class="normal"><a href="#__codelineno-6-31">31</a></span>
+<span class="normal"><a href="#__codelineno-6-32">32</a></span>
+<span class="normal"><a href="#__codelineno-6-33">33</a></span>
+<span class="normal"><a href="#__codelineno-6-34">34</a></span>
+<span class="normal"><a href="#__codelineno-6-35">35</a></span>
+<span class="normal"><a href="#__codelineno-6-36">36</a></span>
+<span class="normal"><a href="#__codelineno-6-37">37</a></span>
+<span class="normal"><a href="#__codelineno-6-38">38</a></span>
+<span class="normal"><a href="#__codelineno-6-39">39</a></span>
+<span class="normal"><a href="#__codelineno-6-40">40</a></span>
+<span class="normal"><a href="#__codelineno-6-41">41</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="s1">'use strict'</span><span class="p">;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="o">//</span> <span class="n">package</span> <span class="n">moment</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">moment</span> <span class="kn">from</span><span class="w"> </span><span class="s1">'moment'</span><span class="p">;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="o">//</span> <span class="n">différencier</span> <span class="n">l</span><span class="s1">'instance d'</span><span class="n">Error</span> <span class="n">reçue</span> <span class="n">dans</span> <span class="n">un</span> <span class="p">[</span><span class="n">catch</span><span class="p">]</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="k">for</span> <span class="p">(</span><span class="n">let</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a>  <span class="o">//</span> <span class="n">date</span> <span class="o">-</span> <span class="n">heure</span> <span class="n">du</span> <span class="n">moment</span> <span class="n">courant</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a>  <span class="n">const</span> <span class="n">now</span> <span class="o">=</span> <span class="n">Date</span><span class="o">.</span><span class="n">now</span><span class="p">();</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a>  <span class="o">//</span> <span class="n">formatage</span> <span class="n">heure</span> <span class="n">pour</span> <span class="n">avoir</span> <span class="n">les</span> <span class="n">millisecondes</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a>  <span class="n">const</span> <span class="n">time</span> <span class="o">=</span> <span class="n">moment</span><span class="p">(</span><span class="n">now</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">"HH:mm:ss:SSS"</span><span class="p">);</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a>  <span class="o">//</span> <span class="n">les</span> <span class="n">millisecondes</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a>  <span class="n">const</span> <span class="n">milli</span> <span class="o">=</span> <span class="n">Number</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">substr</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">3</span><span class="p">));</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a>  <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"--------------------itération n° "</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a>  <span class="k">try</span> <span class="p">{</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16"></a>    <span class="o">//</span> <span class="n">nbre</span> <span class="n">aléatoire</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17"></a>    <span class="n">const</span> <span class="n">nbre</span> <span class="o">=</span> <span class="n">milli</span> <span class="o">%</span> <span class="mi">3</span><span class="p">;</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18"></a>    <span class="n">switch</span> <span class="p">(</span><span class="n">nbre</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19"></a>      <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20"></a>        <span class="n">throw</span> <span class="n">new</span> <span class="ne">ReferenceError</span><span class="p">(</span><span class="s2">"erreur 1"</span><span class="p">);</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21"></a>      <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22"></a>        <span class="n">throw</span> <span class="n">new</span> <span class="n">RangeError</span><span class="p">(</span><span class="s2">"erreur 2"</span><span class="p">);</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23"></a>      <span class="n">default</span><span class="p">:</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24"></a>        <span class="n">throw</span> <span class="n">new</span> <span class="n">EvalError</span><span class="p">(</span><span class="s2">"erreur 3"</span><span class="p">);</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25"></a>    <span class="p">}</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26"></a>  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27"></a>    <span class="o">//</span> <span class="n">il</span> <span class="n">y</span> <span class="n">a</span> <span class="n">eu</span> <span class="n">erreur</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="n">instanceof</span> <span class="ne">ReferenceError</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-6-29" name="__codelineno-6-29"></a>      <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"ReferenceError :"</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">);</span>
+<a id="__codelineno-6-30" name="__codelineno-6-30"></a>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<a id="__codelineno-6-31" name="__codelineno-6-31"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="n">instanceof</span> <span class="n">RangeError</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32"></a>        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"RangeError :"</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">);</span>
+<a id="__codelineno-6-33" name="__codelineno-6-33"></a>      <span class="p">}</span>
+<a id="__codelineno-6-34" name="__codelineno-6-34"></a>      <span class="k">else</span> <span class="p">{</span>
+<a id="__codelineno-6-35" name="__codelineno-6-35"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="n">instanceof</span> <span class="n">EvalError</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-6-36" name="__codelineno-6-36"></a>          <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"EvalError :"</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">);</span>
+<a id="__codelineno-6-37" name="__codelineno-6-37"></a>        <span class="p">}</span>
+<a id="__codelineno-6-38" name="__codelineno-6-38"></a>      <span class="p">}</span>
+<a id="__codelineno-6-39" name="__codelineno-6-39"></a>    <span class="p">}</span>
+<a id="__codelineno-6-40" name="__codelineno-6-40"></a>  <span class="p">}</span>
+<a id="__codelineno-6-41" name="__codelineno-6-41"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
 <p>Là encore, le résultat dépend de l&#x27;heure exacte d&#x27;exécution — chaque lancement donne une répartition différente entre les trois types d&#x27;erreurs :</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>npx tsx exceptions/excep-03.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>  1  --------------------itération n°  0
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  2  RangeError : erreur 2
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  3  --------------------itération n°  1
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  4  ReferenceError : erreur 1
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  5  --------------------itération n°  2
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  6  ReferenceError : erreur 1
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  7  --------------------itération n°  3
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  8  ReferenceError : erreur 1
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  9  --------------------itération n°  4
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a> 10  RangeError : erreur 2
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a> 11  --------------------itération n°  5
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a> 12  RangeError : erreur 2
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a> 13  --------------------itération n°  6
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a> 14  RangeError : erreur 2
-<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a> 15  --------------------itération n°  7
-<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a> 16  EvalError : erreur 3
-<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a> 17  --------------------itération n°  8
-<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a> 18  EvalError : erreur 3
-<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a> 19  --------------------itération n°  9
-<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a> 20  EvalError : erreur 3
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span>
+<span class="normal"><a href="#__codelineno-8-19">19</a></span>
+<span class="normal"><a href="#__codelineno-8-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>--------------------itération n°  0
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>RangeError : erreur 2
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>--------------------itération n°  1
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>ReferenceError : erreur 1
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>--------------------itération n°  2
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a>ReferenceError : erreur 1
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a>--------------------itération n°  3
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>ReferenceError : erreur 1
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a>--------------------itération n°  4
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a>RangeError : erreur 2
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a>--------------------itération n°  5
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a>RangeError : erreur 2
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a>--------------------itération n°  6
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a>RangeError : erreur 2
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a>--------------------itération n°  7
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a>EvalError : erreur 3
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a>--------------------itération n°  8
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a>EvalError : erreur 3
+<a id="__codelineno-8-19" name="__codelineno-8-19"></a>--------------------itération n°  9
+<a id="__codelineno-8-20" name="__codelineno-8-20"></a>EvalError : erreur 3
+</code></pre></div></td></tr></table></div>
 <h2 id="94-script-excep-04">9.4. <span style="color: #2e74b5">script [excep-04]</span></h2>
 <p><strong><span style="color: #9a3412">[NOUVEAU depuis 2019]</span></strong> Ce script présente deux compléments importants apparus avec ECMAScript 2022 : l&#x27;option <strong><span style="color: #9a3412">[cause]</span></strong> d&#x27;<span style="color: #9a3412">Error</span>, et les <strong>classes d&#x27;erreurs personnalisées</strong>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">  </span><span class="mf">1</span><span class="w">  </span><span class="s1">'use strict'</span><span class="p">;</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="mf">2</span><span class="w">  </span><span class="c1">// ========================================================================</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="mf">3</span><span class="w">  </span><span class="c1">// [NOUVEAU depuis 2019] la propriété [cause] d'une erreur  (ECMAScript 2022)</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="mf">4</span><span class="w">  </span><span class="c1">// ========================================================================</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="mf">5</span><span class="w">  </span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="mf">6</span><span class="w">  </span><span class="c1">// il est fréquent d'attraper une erreur technique (bas niveau) et de la</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="mf">7</span><span class="w">  </span><span class="c1">// re-lancer sous la forme d'une erreur plus explicite (haut niveau), pour</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span><span class="mf">8</span><span class="w">  </span><span class="c1">// que le code appelant comprenne mieux le contexte métier.</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="mf">9</span><span class="w">  </span><span class="c1">// AVANT 2022, on perdait la trace de l'erreur d'origine en faisant cela.</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w"> </span><span class="mf">10</span><span class="w">  </span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w"> </span><span class="mf">11</span><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">lireConfiguration</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w"> </span><span class="mf">12</span><span class="w">    </span><span class="c1">// simule une erreur technique de bas niveau (ex: fichier introuvable)</span>
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w"> </span><span class="mf">13</span><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"ENOENT: fichier 'config.json' introuvable"</span><span class="p">);</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w"> </span><span class="mf">14</span><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w"> </span><span class="mf">15</span><span class="w">  </span>
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w"> </span><span class="mf">16</span><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">démarrerApplication</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w"> </span><span class="mf">17</span><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w"> </span><span class="mf">18</span><span class="w">      </span><span class="nx">lireConfiguration</span><span class="p">();</span>
-<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w"> </span><span class="mf">19</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">erreurTechnique</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w"> </span><span class="mf">20</span><span class="w">      </span><span class="c1">// le 2ième paramètre { cause } permet de rattacher l'erreur d'origine</span>
-<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w"> </span><span class="mf">21</span><span class="w">      </span><span class="c1">// à la nouvelle erreur, sans perdre l'information</span>
-<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w"> </span><span class="mf">22</span><span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"impossible de démarrer l'application"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">cause</span><span class="o">:</span><span class="w"> </span><span class="nx">erreurTechnique</span><span class="w"> </span><span class="p">});</span>
-<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w"> </span><span class="mf">23</span><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="w"> </span><span class="mf">24</span><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w"> </span><span class="mf">25</span><span class="w">  </span>
-<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w"> </span><span class="mf">26</span><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w"> </span><span class="mf">27</span><span class="w">    </span><span class="nx">démarrerApplication</span><span class="p">();</span>
-<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="w"> </span><span class="mf">28</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">erreur</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="w"> </span><span class="mf">29</span><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur="</span><span class="p">,</span><span class="w"> </span><span class="nx">erreur</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
-<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="w"> </span><span class="mf">30</span><span class="w">    </span><span class="c1">// erreur.cause donne accès à l'erreur d'origine, très utile pour le débogage</span>
-<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="w"> </span><span class="mf">31</span><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"cause="</span><span class="p">,</span><span class="w"> </span><span class="nx">erreur</span><span class="p">.</span><span class="nx">cause</span><span class="o">?</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
-<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="w"> </span><span class="mf">32</span><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="w"> </span><span class="mf">33</span><span class="w">  </span>
-<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="w"> </span><span class="mf">34</span><span class="w">  </span><span class="c1">// ------------------------------------------------------------------------</span>
-<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="w"> </span><span class="mf">35</span><span class="w">  </span><span class="c1">// classes d'erreurs personnalisées (possible depuis ECMAScript 2015 déjà,</span>
-<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="w"> </span><span class="mf">36</span><span class="w">  </span><span class="c1">// mais très souvent utilisé avec [cause] depuis 2022, donc revu ici)</span>
-<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="w"> </span><span class="mf">37</span><span class="w">  </span><span class="c1">// ------------------------------------------------------------------------</span>
-<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="w"> </span><span class="mf">38</span><span class="w">  </span><span class="c1">// on peut créer ses propres types d'erreur en étendant [Error], ce qui permet</span>
-<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="w"> </span><span class="mf">39</span><span class="w">  </span><span class="c1">// ensuite de les distinguer avec [instanceof], comme pour ReferenceError ou RangeError</span>
-<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="w"> </span><span class="mf">40</span><span class="w">  </span><span class="c1">// (cf. exceptions/excep-03.js)</span>
-<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a><span class="w"> </span><span class="mf">41</span><span class="w">  </span><span class="kd">class</span><span class="w"> </span><span class="nx">ErreurValidation</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="ne">Error</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="w"> </span><span class="mf">42</span><span class="w">  </span>
-<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="w"> </span><span class="mf">43</span><span class="w">    </span><span class="nx">champEnErreur</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="p">;</span>
-<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a><span class="w"> </span><span class="mf">44</span><span class="w">  </span>
-<a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a><span class="w"> </span><span class="mf">45</span><span class="w">    </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="p">,</span><span class="w"> </span><span class="nx">champEnErreur</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">?:</span><span class="w"> </span><span class="nx">ErrorOptions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a><span class="w"> </span><span class="mf">46</span><span class="w">      </span><span class="c1">// on transmet le message et les [options] (dont un éventuel cause) au parent [Error]</span>
-<a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a><span class="w"> </span><span class="mf">47</span><span class="w">      </span><span class="k">super</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
-<a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a><span class="w"> </span><span class="mf">48</span><span class="w">      </span><span class="c1">// le nom par défaut serait "Error" ; on le personnalise</span>
-<a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a><span class="w"> </span><span class="mf">49</span><span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ErreurValidation"</span><span class="p">;</span>
-<a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a><span class="w"> </span><span class="mf">50</span><span class="w">      </span><span class="c1">// on peut ajouter des informations métier propres à ce type d'erreur</span>
-<a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a><span class="w"> </span><span class="mf">51</span><span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">champEnErreur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">champEnErreur</span><span class="p">;</span>
-<a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a><span class="w"> </span><span class="mf">52</span><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a><span class="w"> </span><span class="mf">53</span><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a><span class="w"> </span><span class="mf">54</span><span class="w">  </span>
-<a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a><span class="w"> </span><span class="mf">55</span><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">valider</span><span class="p">(</span><span class="nx">âge</span><span class="o">:</span><span class="w"> </span><span class="nx">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kr">boolean</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a><span class="w"> </span><span class="mf">56</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">âge</span><span class="p">)</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">"number"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a><span class="w"> </span><span class="mf">57</span><span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ErreurValidation</span><span class="p">(</span><span class="s2">"l'âge doit être un nombre"</span><span class="p">,</span><span class="w"> </span><span class="s2">"âge"</span><span class="p">);</span>
-<a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a><span class="w"> </span><span class="mf">58</span><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a><span class="w"> </span><span class="mf">59</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">âge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">âge</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">130</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a><span class="w"> </span><span class="mf">60</span><span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ErreurValidation</span><span class="p">(</span><span class="s2">"l'âge doit être compris entre 0 et 130"</span><span class="p">,</span><span class="w"> </span><span class="s2">"âge"</span><span class="p">);</span>
-<a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a><span class="w"> </span><span class="mf">61</span><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a><span class="w"> </span><span class="mf">62</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
-<a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a><span class="w"> </span><span class="mf">63</span><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a><span class="w"> </span><span class="mf">64</span><span class="w">  </span>
-<a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a><span class="w"> </span><span class="mf">65</span><span class="w">  </span><span class="c1">// des essais avec différentes valeurs</span>
-<a id="__codelineno-9-66" name="__codelineno-9-66" href="#__codelineno-9-66"></a><span class="w"> </span><span class="mf">66</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">valeur</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="p">[</span><span class="mf">25</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="s2">"trente"</span><span class="p">,</span><span class="w"> </span><span class="mf">200</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-67" name="__codelineno-9-67" href="#__codelineno-9-67"></a><span class="w"> </span><span class="mf">67</span><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-68" name="__codelineno-9-68" href="#__codelineno-9-68"></a><span class="w"> </span><span class="mf">68</span><span class="w">      </span><span class="nx">valider</span><span class="p">(</span><span class="nx">valeur</span><span class="p">);</span>
-<a id="__codelineno-9-69" name="__codelineno-9-69" href="#__codelineno-9-69"></a><span class="w"> </span><span class="mf">69</span><span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`valeur [</span><span class="si">${</span><span class="nx">valeur</span><span class="si">}</span><span class="sb">] : validation OK`</span><span class="p">);</span>
-<a id="__codelineno-9-70" name="__codelineno-9-70" href="#__codelineno-9-70"></a><span class="w"> </span><span class="mf">70</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">erreur</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-71" name="__codelineno-9-71" href="#__codelineno-9-71"></a><span class="w"> </span><span class="mf">71</span><span class="w">      </span><span class="c1">// on peut distinguer nos erreurs métier des autres erreurs grâce à instanceof</span>
-<a id="__codelineno-9-72" name="__codelineno-9-72" href="#__codelineno-9-72"></a><span class="w"> </span><span class="mf">72</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">erreur</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">ErreurValidation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-73" name="__codelineno-9-73" href="#__codelineno-9-73"></a><span class="w"> </span><span class="mf">73</span><span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`valeur [</span><span class="si">${</span><span class="nx">valeur</span><span class="si">}</span><span class="sb">] : erreur de validation sur [</span><span class="si">${</span><span class="nx">erreur</span><span class="p">.</span><span class="nx">champEnErreur</span><span class="si">}</span><span class="sb">] - </span><span class="si">${</span><span class="nx">erreur</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<a id="__codelineno-9-74" name="__codelineno-9-74" href="#__codelineno-9-74"></a><span class="w"> </span><span class="mf">74</span><span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-75" name="__codelineno-9-75" href="#__codelineno-9-75"></a><span class="w"> </span><span class="mf">75</span><span class="w">        </span><span class="c1">// une erreur inattendue, non prévue par notre code</span>
-<a id="__codelineno-9-76" name="__codelineno-9-76" href="#__codelineno-9-76"></a><span class="w"> </span><span class="mf">76</span><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="nx">erreur</span><span class="p">;</span>
-<a id="__codelineno-9-77" name="__codelineno-9-77" href="#__codelineno-9-77"></a><span class="w"> </span><span class="mf">77</span><span class="w">      </span><span class="p">}</span>
-<a id="__codelineno-9-78" name="__codelineno-9-78" href="#__codelineno-9-78"></a><span class="w"> </span><span class="mf">78</span><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-9-79" name="__codelineno-9-79" href="#__codelineno-9-79"></a><span class="w"> </span><span class="mf">79</span><span class="w">  </span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span>
+<span class="normal"><a href="#__codelineno-9-19">19</a></span>
+<span class="normal"><a href="#__codelineno-9-20">20</a></span>
+<span class="normal"><a href="#__codelineno-9-21">21</a></span>
+<span class="normal"><a href="#__codelineno-9-22">22</a></span>
+<span class="normal"><a href="#__codelineno-9-23">23</a></span>
+<span class="normal"><a href="#__codelineno-9-24">24</a></span>
+<span class="normal"><a href="#__codelineno-9-25">25</a></span>
+<span class="normal"><a href="#__codelineno-9-26">26</a></span>
+<span class="normal"><a href="#__codelineno-9-27">27</a></span>
+<span class="normal"><a href="#__codelineno-9-28">28</a></span>
+<span class="normal"><a href="#__codelineno-9-29">29</a></span>
+<span class="normal"><a href="#__codelineno-9-30">30</a></span>
+<span class="normal"><a href="#__codelineno-9-31">31</a></span>
+<span class="normal"><a href="#__codelineno-9-32">32</a></span>
+<span class="normal"><a href="#__codelineno-9-33">33</a></span>
+<span class="normal"><a href="#__codelineno-9-34">34</a></span>
+<span class="normal"><a href="#__codelineno-9-35">35</a></span>
+<span class="normal"><a href="#__codelineno-9-36">36</a></span>
+<span class="normal"><a href="#__codelineno-9-37">37</a></span>
+<span class="normal"><a href="#__codelineno-9-38">38</a></span>
+<span class="normal"><a href="#__codelineno-9-39">39</a></span>
+<span class="normal"><a href="#__codelineno-9-40">40</a></span>
+<span class="normal"><a href="#__codelineno-9-41">41</a></span>
+<span class="normal"><a href="#__codelineno-9-42">42</a></span>
+<span class="normal"><a href="#__codelineno-9-43">43</a></span>
+<span class="normal"><a href="#__codelineno-9-44">44</a></span>
+<span class="normal"><a href="#__codelineno-9-45">45</a></span>
+<span class="normal"><a href="#__codelineno-9-46">46</a></span>
+<span class="normal"><a href="#__codelineno-9-47">47</a></span>
+<span class="normal"><a href="#__codelineno-9-48">48</a></span>
+<span class="normal"><a href="#__codelineno-9-49">49</a></span>
+<span class="normal"><a href="#__codelineno-9-50">50</a></span>
+<span class="normal"><a href="#__codelineno-9-51">51</a></span>
+<span class="normal"><a href="#__codelineno-9-52">52</a></span>
+<span class="normal"><a href="#__codelineno-9-53">53</a></span>
+<span class="normal"><a href="#__codelineno-9-54">54</a></span>
+<span class="normal"><a href="#__codelineno-9-55">55</a></span>
+<span class="normal"><a href="#__codelineno-9-56">56</a></span>
+<span class="normal"><a href="#__codelineno-9-57">57</a></span>
+<span class="normal"><a href="#__codelineno-9-58">58</a></span>
+<span class="normal"><a href="#__codelineno-9-59">59</a></span>
+<span class="normal"><a href="#__codelineno-9-60">60</a></span>
+<span class="normal"><a href="#__codelineno-9-61">61</a></span>
+<span class="normal"><a href="#__codelineno-9-62">62</a></span>
+<span class="normal"><a href="#__codelineno-9-63">63</a></span>
+<span class="normal"><a href="#__codelineno-9-64">64</a></span>
+<span class="normal"><a href="#__codelineno-9-65">65</a></span>
+<span class="normal"><a href="#__codelineno-9-66">66</a></span>
+<span class="normal"><a href="#__codelineno-9-67">67</a></span>
+<span class="normal"><a href="#__codelineno-9-68">68</a></span>
+<span class="normal"><a href="#__codelineno-9-69">69</a></span>
+<span class="normal"><a href="#__codelineno-9-70">70</a></span>
+<span class="normal"><a href="#__codelineno-9-71">71</a></span>
+<span class="normal"><a href="#__codelineno-9-72">72</a></span>
+<span class="normal"><a href="#__codelineno-9-73">73</a></span>
+<span class="normal"><a href="#__codelineno-9-74">74</a></span>
+<span class="normal"><a href="#__codelineno-9-75">75</a></span>
+<span class="normal"><a href="#__codelineno-9-76">76</a></span>
+<span class="normal"><a href="#__codelineno-9-77">77</a></span>
+<span class="normal"><a href="#__codelineno-9-78">78</a></span>
+<span class="normal"><a href="#__codelineno-9-79">79</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="s1">'use strict'</span><span class="p">;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="c1">// ========================================================================</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="c1">// [NOUVEAU depuis 2019] la propriété [cause] d'une erreur  (ECMAScript 2022)</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="c1">// ========================================================================</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="c1">// il est fréquent d'attraper une erreur technique (bas niveau) et de la</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="c1">// re-lancer sous la forme d'une erreur plus explicite (haut niveau), pour</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="c1">// que le code appelant comprenne mieux le contexte métier.</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="c1">// AVANT 2022, on perdait la trace de l'erreur d'origine en faisant cela.</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="kd">function</span><span class="w"> </span><span class="nx">lireConfiguration</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">  </span><span class="c1">// simule une erreur technique de bas niveau (ex: fichier introuvable)</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">  </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"ENOENT: fichier 'config.json' introuvable"</span><span class="p">);</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="p">}</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a>
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="kd">function</span><span class="w"> </span><span class="nx">démarrerApplication</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">    </span><span class="nx">lireConfiguration</span><span class="p">();</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">erreurTechnique</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20"></a><span class="w">    </span><span class="c1">// le 2ième paramètre { cause } permet de rattacher l'erreur d'origine</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="w">    </span><span class="c1">// à la nouvelle erreur, sans perdre l'information</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"impossible de démarrer l'application"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">cause</span><span class="o">:</span><span class="w"> </span><span class="nx">erreurTechnique</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-24" name="__codelineno-9-24"></a><span class="p">}</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25"></a>
+<a id="__codelineno-9-26" name="__codelineno-9-26"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27"></a><span class="w">  </span><span class="nx">démarrerApplication</span><span class="p">();</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">erreur</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"erreur="</span><span class="p">,</span><span class="w"> </span><span class="nx">erreur</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30"></a><span class="w">  </span><span class="c1">// erreur.cause donne accès à l'erreur d'origine, très utile pour le débogage</span>
+<a id="__codelineno-9-31" name="__codelineno-9-31"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"cause="</span><span class="p">,</span><span class="w"> </span><span class="nx">erreur</span><span class="p">.</span><span class="nx">cause</span><span class="o">?</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32"></a><span class="p">}</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33"></a>
+<a id="__codelineno-9-34" name="__codelineno-9-34"></a><span class="c1">// ------------------------------------------------------------------------</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35"></a><span class="c1">// classes d'erreurs personnalisées (possible depuis ECMAScript 2015 déjà,</span>
+<a id="__codelineno-9-36" name="__codelineno-9-36"></a><span class="c1">// mais très souvent utilisé avec [cause] depuis 2022, donc revu ici)</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37"></a><span class="c1">// ------------------------------------------------------------------------</span>
+<a id="__codelineno-9-38" name="__codelineno-9-38"></a><span class="c1">// on peut créer ses propres types d'erreur en étendant [Error], ce qui permet</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39"></a><span class="c1">// ensuite de les distinguer avec [instanceof], comme pour ReferenceError ou RangeError</span>
+<a id="__codelineno-9-40" name="__codelineno-9-40"></a><span class="c1">// (cf. exceptions/excep-03.js)</span>
+<a id="__codelineno-9-41" name="__codelineno-9-41"></a><span class="kd">class</span><span class="w"> </span><span class="nx">ErreurValidation</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="ne">Error</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-42" name="__codelineno-9-42"></a>
+<a id="__codelineno-9-43" name="__codelineno-9-43"></a><span class="w">  </span><span class="nx">champEnErreur</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="p">;</span>
+<a id="__codelineno-9-44" name="__codelineno-9-44"></a>
+<a id="__codelineno-9-45" name="__codelineno-9-45"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="p">,</span><span class="w"> </span><span class="nx">champEnErreur</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">?:</span><span class="w"> </span><span class="nx">ErrorOptions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-46" name="__codelineno-9-46"></a><span class="w">    </span><span class="c1">// on transmet le message et les [options] (dont un éventuel cause) au parent [Error]</span>
+<a id="__codelineno-9-47" name="__codelineno-9-47"></a><span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
+<a id="__codelineno-9-48" name="__codelineno-9-48"></a><span class="w">    </span><span class="c1">// le nom par défaut serait "Error" ; on le personnalise</span>
+<a id="__codelineno-9-49" name="__codelineno-9-49"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ErreurValidation"</span><span class="p">;</span>
+<a id="__codelineno-9-50" name="__codelineno-9-50"></a><span class="w">    </span><span class="c1">// on peut ajouter des informations métier propres à ce type d'erreur</span>
+<a id="__codelineno-9-51" name="__codelineno-9-51"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">champEnErreur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">champEnErreur</span><span class="p">;</span>
+<a id="__codelineno-9-52" name="__codelineno-9-52"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-53" name="__codelineno-9-53"></a><span class="p">}</span>
+<a id="__codelineno-9-54" name="__codelineno-9-54"></a>
+<a id="__codelineno-9-55" name="__codelineno-9-55"></a><span class="kd">function</span><span class="w"> </span><span class="nx">valider</span><span class="p">(</span><span class="nx">âge</span><span class="o">:</span><span class="w"> </span><span class="nx">unknown</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kr">boolean</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-56" name="__codelineno-9-56"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="p">(</span><span class="nx">âge</span><span class="p">)</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">"number"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-57" name="__codelineno-9-57"></a><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ErreurValidation</span><span class="p">(</span><span class="s2">"l'âge doit être un nombre"</span><span class="p">,</span><span class="w"> </span><span class="s2">"âge"</span><span class="p">);</span>
+<a id="__codelineno-9-58" name="__codelineno-9-58"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-59" name="__codelineno-9-59"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">âge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">âge</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">130</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-60" name="__codelineno-9-60"></a><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ErreurValidation</span><span class="p">(</span><span class="s2">"l'âge doit être compris entre 0 et 130"</span><span class="p">,</span><span class="w"> </span><span class="s2">"âge"</span><span class="p">);</span>
+<a id="__codelineno-9-61" name="__codelineno-9-61"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-62" name="__codelineno-9-62"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<a id="__codelineno-9-63" name="__codelineno-9-63"></a><span class="p">}</span>
+<a id="__codelineno-9-64" name="__codelineno-9-64"></a>
+<a id="__codelineno-9-65" name="__codelineno-9-65"></a><span class="c1">// des essais avec différentes valeurs</span>
+<a id="__codelineno-9-66" name="__codelineno-9-66"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">valeur</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="p">[</span><span class="mf">25</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="s2">"trente"</span><span class="p">,</span><span class="w"> </span><span class="mf">200</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-67" name="__codelineno-9-67"></a><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-68" name="__codelineno-9-68"></a><span class="w">    </span><span class="nx">valider</span><span class="p">(</span><span class="nx">valeur</span><span class="p">);</span>
+<a id="__codelineno-9-69" name="__codelineno-9-69"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`valeur [</span><span class="si">${</span><span class="nx">valeur</span><span class="si">}</span><span class="sb">] : validation OK`</span><span class="p">);</span>
+<a id="__codelineno-9-70" name="__codelineno-9-70"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">erreur</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-71" name="__codelineno-9-71"></a><span class="w">    </span><span class="c1">// on peut distinguer nos erreurs métier des autres erreurs grâce à instanceof</span>
+<a id="__codelineno-9-72" name="__codelineno-9-72"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">erreur</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">ErreurValidation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-73" name="__codelineno-9-73"></a><span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`valeur [</span><span class="si">${</span><span class="nx">valeur</span><span class="si">}</span><span class="sb">] : erreur de validation sur [</span><span class="si">${</span><span class="nx">erreur</span><span class="p">.</span><span class="nx">champEnErreur</span><span class="si">}</span><span class="sb">] - </span><span class="si">${</span><span class="nx">erreur</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<a id="__codelineno-9-74" name="__codelineno-9-74"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-75" name="__codelineno-9-75"></a><span class="w">      </span><span class="c1">// une erreur inattendue, non prévue par notre code</span>
+<a id="__codelineno-9-76" name="__codelineno-9-76"></a><span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="nx">erreur</span><span class="p">;</span>
+<a id="__codelineno-9-77" name="__codelineno-9-77"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-78" name="__codelineno-9-78"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-79" name="__codelineno-9-79"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
 <ul>
 <li>lignes 17-22 : quand on attrape une erreur technique de bas niveau pour la re-lancer sous une forme plus explicite, le 2ᵉ paramètre <span style="color: #9a3412">{ cause }</span> de <span style="color: #9a3412">new Error(...)</span> permet de <strong>conserver la trace de l&#x27;erreur d&#x27;origine</strong>, sans quoi elle serait perdue (comportement d&#x27;avant 2022) ;</li>
 <li>ligne 30 : <span style="color: #9a3412">erreur.cause?.message</span> récupère le message de l&#x27;erreur d&#x27;origine, très utile pour le débogage ;</li>
@@ -1174,13 +1430,18 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>npx tsx exceptions/excep-04.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>  1  erreur= impossible de démarrer l'application
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  2  cause= ENOENT: fichier 'config.json' introuvable
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  3  valeur [25] : validation OK
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  4  valeur [-5] : erreur de validation sur [âge] - l'âge doit être compris entre 0 et 130
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  5  valeur [trente] : erreur de validation sur [âge] - l'âge doit être un nombre
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  6  valeur [200] : erreur de validation sur [âge] - l'âge doit être compris entre 0 et 130
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>erreur= impossible de démarrer l'application
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>cause= ENOENT: fichier 'config.json' introuvable
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>valeur [25] : validation OK
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>valeur [-5] : erreur de validation sur [âge] - l'âge doit être compris entre 0 et 130
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>valeur [trente] : erreur de validation sur [âge] - l'âge doit être un nombre
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>valeur [200] : erreur de validation sur [âge] - l'âge doit être compris entre 0 et 130
+</code></pre></div></td></tr></table></div>
 
 
 
