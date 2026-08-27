@@ -187,11 +187,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       return lines.join("\n");
     }
-    // Fallback: remove known line-number nodes then read text
+    // Fallback: remove known line-number/UI nodes then read text
     var code = container.querySelector("pre code") || container.querySelector("code") || container.querySelector("pre");
     if (!code) return "";
     var clone = code.cloneNode(true);
-    clone.querySelectorAll(".odt-code-lineno,.lineno,.linenos,.linenodiv,td.linenos,span.linenos,.hljs-ln-numbers").forEach(function (n) {
+    clone.querySelectorAll(".odt-code-lineno,.lineno,.linenos,.linenodiv,td.linenos,span.linenos,.hljs-ln-numbers,.odt-code-copy-btn").forEach(function (n) {
       n.remove();
     });
     return (clone.textContent || "").replace(/\s+$/,"");
@@ -200,16 +200,32 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle common "table with line numbers" layouts by preferring the code cell
     var table = scope.closest ? scope.closest("table.highlighttable") : null;
     if (table) {
-      var codeCell = table.querySelector("td.code pre, td.code code, td.code");
+      // V1015: a single comma-separated selector list is NOT a priority
+      // fallback chain -- querySelector returns the first match in DOCUMENT
+      // ORDER across every alternative, and "td.code" (the bare cell, one of
+      // the alternatives) is itself an ANCESTOR of "td.code pre"/"td.code
+      // code", so it always matched first and this always resolved to the
+      // <td class="code"> cell itself. By click time that cell already has
+      // the copy button appended as a child (ensureButton() attaches the
+      // button directly to this same cell), so its textContent included the
+      // button's own label ("Copy"/"Copier") appended after the code. Use a
+      // real priority chain (separate querySelector calls with ||), and
+      // still clone + strip known non-code nodes as a safety net in case no
+      // pre/code element exists and the cell itself has to be used.
+      var codeCell = table.querySelector("td.code pre") || table.querySelector("td.code code") || table.querySelector("td.code");
       if (codeCell) {
-        return (codeCell.textContent || "").replace(/\s+$/,"");
+        var cellClone = codeCell.cloneNode(true);
+        cellClone.querySelectorAll(".odt-code-lineno,.lineno,.linenos,.linenodiv,td.linenos,span.linenos,.hljs-ln-numbers,.odt-code-copy-btn").forEach(function (n) {
+          n.remove();
+        });
+        return (cellClone.textContent || "").replace(/\s+$/,"");
       }
     }
     var pre = scope.tagName && scope.tagName.toLowerCase() === "pre" ? scope : (scope.querySelector ? (scope.querySelector("pre") || scope) : scope);
     var code = pre && pre.querySelector ? (pre.querySelector("code") || pre) : pre;
     if (!code) return "";
     var clone = code.cloneNode(true);
-    clone.querySelectorAll(".odt-code-lineno,.lineno,.linenos,.linenodiv,td.linenos,span.linenos,.hljs-ln-numbers").forEach(function (n) {
+    clone.querySelectorAll(".odt-code-lineno,.lineno,.linenos,.linenodiv,td.linenos,span.linenos,.hljs-ln-numbers,.odt-code-copy-btn").forEach(function (n) {
       n.remove();
     });
     return (clone.textContent || "").replace(/\s+$/,"");
