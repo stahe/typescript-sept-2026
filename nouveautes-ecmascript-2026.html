@@ -1007,9 +1007,10 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npx tsx ecmascript-2026/01-math-sumPrecise.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>  1  somme avec reduce = 1.9000000000000004
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  2  Math.sumPrecise n'est pas encore disponible sur ce moteur JavaScript (voir le commentaire en tête de ce fichier)
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>somme avec reduce = 1.9000000000000004
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>Math.sumPrecise n'est pas encore disponible sur ce moteur JavaScript (voir le commentaire en tête de ce fichier)
+</code></pre></div></td></tr></table></div>
 <h2 id="163-script-02-iterator-concat">16.3. <span style="color: #2e74b5">script [02-iterator-concat]</span></h2>
 <p><strong><span style="color: #9a3412">[Iterator.concat]</span></strong> enchaîne plusieurs itérables (tableau, <span style="color: #9a3412">Set</span>, générateur...) en un seul itérateur <strong>paresseux</strong> (*lazy*) : les éléments ne sont produits qu&#x27;au fur et à mesure, sans construire de collection intermédiaire complète — contrairement à l&#x27;opérateur de spread <span style="color: #9a3412">[...a, ...b]</span>, qui recopie tout immédiatement en mémoire.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
@@ -1115,9 +1116,10 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>npx tsx ecmascript-2026/02-iterator-concat.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>  1  avec spread : [ 'Ana', 'Léo', 'Nora', 'Théo', 'Zoé' ]
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  2  Iterator.concat n'est pas disponible sur ce moteur JavaScript (voir le commentaire en tête de ce fichier)
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>avec spread : [ 'Ana', 'Léo', 'Nora', 'Théo', 'Zoé' ]
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>Iterator.concat n'est pas disponible sur ce moteur JavaScript (voir le commentaire en tête de ce fichier)
+</code></pre></div></td></tr></table></div>
 <h2 id="164-script-03-error-iserror">16.4. <span style="color: #2e74b5">script [03-error-isError]</span></h2>
 <p><strong><span style="color: #9a3412">[Error.isError]</span></strong> détecte de façon fiable si une valeur est une erreur, y compris lorsqu&#x27;elle provient d&#x27;un autre « royaume » JavaScript (un contexte d&#x27;exécution isolé — une iframe, un worker, ou le module <span style="color: #9a3412">vm</span> de node) : chaque royaume a sa propre classe <span style="color: #9a3412">Error</span>, ce qui met <span style="color: #9a3412">instanceof Error</span> en défaut, comme le script le démontre concrètement :</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
@@ -1411,9 +1413,10 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>npx tsx ecmascript-2026/04-map-weakmap-getOrInsert.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>  1  avec l'ancienne façon : Map(1) { 'cuisine' =&gt; [ 'Ana', 'Léo' ] }
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  2  Map.prototype.getOrInsert n'est pas disponible sur ce moteur JavaScript (voir le commentaire en tête de ce fichier) - seule la partie 1) ci-dessus a pu s'exécuter
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>avec l'ancienne façon : Map(1) { 'cuisine' =&gt; [ 'Ana', 'Léo' ] }
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>Map.prototype.getOrInsert n'est pas disponible sur ce moteur JavaScript (voir le commentaire en tête de ce fichier) - seule la partie 1) ci-dessus a pu s'exécuter
+</code></pre></div></td></tr></table></div>
 <h2 id="166-script-05-uint8array-base64-hex">16.6. <span style="color: #2e74b5">script [05-uint8array-base64-hex]</span></h2>
 <p><span style="color: #9a3412">Uint8Array</span> (un tableau typé d&#x27;octets bruts) reçoit de nouvelles méthodes de conversion vers/depuis le <strong>base64</strong> et l&#x27;<strong>hexadécimal</strong> — des formats couramment utilisés pour transmettre des données binaires en JSON ou en URL, sans dépendre d&#x27;un package tiers :</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
@@ -1535,8 +1538,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>npx tsx ecmascript-2026/05-uint8array-base64-hex.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>  1  Uint8Array.prototype.toBase64 n'est pas disponible sur ce moteur JavaScript (voir le commentaire en tête de ce fichier)
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>Uint8Array.prototype.toBase64 n'est pas disponible sur ce moteur JavaScript (voir le commentaire en tête de ce fichier)
+</code></pre></div></td></tr></table></div>
 <h2 id="167-script-06-json-rawjson-et-reviver">16.7. <span style="color: #2e74b5">script [06-json-rawJSON-et-reviver]</span></h2>
 <p>Ce dernier script se distingue des précédents : <strong><span style="color: #9a3412">[JSON.rawJSON]</span></strong>/<strong><span style="color: #9a3412">[isRawJSON]</span></strong>, ainsi que le nouveau paramètre <span style="color: #9a3412">context</span> du reviver de <span style="color: #9a3412">JSON.parse</span>, <strong>fonctionnent déjà</strong> dans l&#x27;environnement de préparation de ce cours (Node 22) :</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
@@ -1702,7 +1705,7 @@
           https://stahe.github.io
         </a>
         <br>
-        Ce cours-tutoriel rédigé par <strong>Serge Tahé</strong> est mis à la disposition du public selon les termes de la
+        Ce cours-tutoriel rédigé par l'IA <strong>Claude AI</strong> sous la supervision de <strong>Serge Tahé</strong> est mis à la disposition du public selon les termes de la
         <em>Licence Creative Commons Attribution – Pas d'utilisation commerciale –
         Partage dans les mêmes conditions 3.0 non modifiée</em>.
 

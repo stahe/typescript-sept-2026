@@ -930,13 +930,13 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>node --version
 </code></pre></div>
 <p><em>Résultat (la version exacte peut différer ; 26.x ou plus est recommandé pour ce cours) :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>  1  v22.22.2
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>v22.22.2
+</code></pre></div></td></tr></table></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>npx tsc --version
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>  1  Version 6.0.3
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>Version 6.0.3
+</code></pre></div></td></tr></table></div>
 <h2 id="22-mise-en-place-du-projet-vscode">2.2. <span style="color: #2e74b5">Mise en place du projet VSCode</span></h2>
 <p>Créons un dossier de travail, que nous ouvrons dans VSCode. On y crée deux fichiers à la racine : <span style="color: #9a3412">package.json</span> et <span style="color: #9a3412">tsconfig.json</span>.</p>
 <h3 id="221-le-fichier-packagejson">2.2.1. <span style="color: #1f4d78">Le fichier <code>package.json</code></span></h3>
@@ -992,8 +992,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>npx tsx tests/test-01.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>  1  hello world!
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>hello world!
+</code></pre></div></td></tr></table></div>
 <h2 id="24-second-script-la-verification-de-types">2.4. <span style="color: #2e74b5">Second script : la vérification de types</span></h2>
 <p>Créons un second fichier <span style="color: #9a3412">tests/test-02.ts</span>, avec une variable typée explicitement :</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="s1">'use strict'</span>
@@ -1003,8 +1003,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>npx tsx tests/test-02.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>  1  x= 4
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>x= 4
+</code></pre></div></td></tr></table></div>
 <p>Essayons maintenant d&#x27;affecter une chaîne de caractères à cette variable déclarée <span style="color: #9a3412">number</span> :</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>x = "abc";
 </code></pre></div>
@@ -1012,8 +1012,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>npx tsc --noEmit
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>  1  tests/test-02.ts(4,1): error TS2322: Type 'string' is not assignable to type 'number'.
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>tests/test-02.ts(4,1): error TS2322: Type 'string' is not assignable to type 'number'.
+</code></pre></div></td></tr></table></div>
 <p>C&#x27;est là tout l&#x27;intérêt de TypeScript par rapport à JavaScript : une catégorie entière d&#x27;erreurs (mélanger les types par erreur) est détectée <strong>avant</strong> l&#x27;exécution, directement dans l&#x27;éditeur, plutôt que découverte au moment où le code plante en production.</p>
 <h2 id="25-eslint">2.5. <span style="color: #2e74b5">ESLint</span></h2>
 <p><strong><span style="color: #9a3412">[ESLint]</span></strong> est un outil qui vérifie que le code respecte un ensemble de règles de style et de bonnes pratiques (variable non utilisée, comparaison suspecte, etc.). Le fichier de configuration <span style="color: #9a3412">.eslintrc.cjs</span> (l&#x27;extension <span style="color: #9a3412">.cjs</span>, et non <span style="color: #9a3412">.js</span>, est nécessaire car <span style="color: #9a3412">package.json</span> déclare <span style="color: #9a3412">&quot;type&quot;: &quot;module&quot;</span>) utilise le parser <span style="color: #9a3412">@typescript-eslint</span>, qui comprend la syntaxe TypeScript (types, interfaces, champs privés <span style="color: #9a3412">#x</span>...) :</p>
@@ -1071,7 +1071,7 @@
           https://stahe.github.io
         </a>
         <br>
-        Ce cours-tutoriel rédigé par <strong>Serge Tahé</strong> est mis à la disposition du public selon les termes de la
+        Ce cours-tutoriel rédigé par l'IA <strong>Claude AI</strong> sous la supervision de <strong>Serge Tahé</strong> est mis à la disposition du public selon les termes de la
         <em>Licence Creative Commons Attribution – Pas d'utilisation commerciale –
         Partage dans les mêmes conditions 3.0 non modifiée</em>.
 

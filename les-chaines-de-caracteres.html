@@ -940,8 +940,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npx tsc --noEmit
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>  1  strings/str-01.ts(15,1): error TS2540: Cannot assign to '2' because it is a read-only property.
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>strings/str-01.ts(15,1): error TS2540: Cannot assign to '2' because it is a read-only property.
+</code></pre></div></td></tr></table></div>
 <p>Exécution avec <span style="color: #9a3412">tsx</span> (sans vérification de types préalable) :</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>npx tsx strings/str-01.ts
 </code></pre></div>
@@ -1036,8 +1036,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>npx tsx strings/str-03.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>  1  [Introduction à Javascript par l'exemple].substr(3, 2)=ro
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>[Introduction à Javascript par l'exemple].substr(3, 2)=ro
+</code></pre></div></td></tr></table></div>
 <h2 id="64-script-str-04">6.4. <span style="color: #2e74b5">script [str-04]</span></h2>
 <p>La chaîne gabarit reste insuffisante pour un formatage précis (largeur, alignement, précision décimale...). On utilise pour cela un package externe, <strong><span style="color: #9a3412">[sprintf-js]</span></strong>, qui reproduit les fonctions <span style="color: #9a3412">printf</span>/<span style="color: #9a3412">sprintf</span> bien connues d&#x27;autres langages. Il s&#x27;installe avec <span style="color: #9a3412">npm install sprintf-js</span>, et s&#x27;importe simplement :</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
@@ -1059,8 +1059,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>npx tsx strings/str-04.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>  1  [Introduction à Javascript par l'exemple].substr(3,2)=[ro]
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>[Introduction à Javascript par l'exemple].substr(3,2)=[ro]
+</code></pre></div></td></tr></table></div>
 <h2 id="65-script-str-05">6.5. <span style="color: #2e74b5">script [str-05]</span></h2>
 <p>La fonction <strong><span style="color: #9a3412">[sprintf]</span></strong> accepte, comme en C, des « formats » introduits par <span style="color: #9a3412">%</span> : <span style="color: #9a3412">%s</span> (chaîne), <span style="color: #9a3412">%d</span> (entier), <span style="color: #9a3412">%f</span> (réel), <span style="color: #9a3412">%j</span> (JSON), <span style="color: #9a3412">%T</span> (type), <span style="color: #9a3412">%t</span> (booléen), avec des modificateurs de largeur et d&#x27;alignement (<span style="color: #9a3412">%20s</span>, <span style="color: #9a3412">%-20s</span>, <span style="color: #9a3412">%04d</span>...) :</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
@@ -1436,7 +1436,7 @@
           https://stahe.github.io
         </a>
         <br>
-        Ce cours-tutoriel rédigé par <strong>Serge Tahé</strong> est mis à la disposition du public selon les termes de la
+        Ce cours-tutoriel rédigé par l'IA <strong>Claude AI</strong> sous la supervision de <strong>Serge Tahé</strong> est mis à la disposition du public selon les termes de la
         <em>Licence Creative Commons Attribution – Pas d'utilisation commerciale –
         Partage dans les mêmes conditions 3.0 non modifiée</em>.
 

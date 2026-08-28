@@ -1244,8 +1244,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>npx tsc --noEmit
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>  1  bases/bases-02.ts(11,1): error TS2588: Cannot assign to 'y' because it is a constant.
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>bases/bases-02.ts(11,1): error TS2588: Cannot assign to 'y' because it is a constant.
+</code></pre></div></td></tr></table></div>
 <p>En JavaScript pur, cette même erreur n&#x27;aurait été détectée qu&#x27;à l&#x27;exécution. Exécutons malgré tout ce script avec <span style="color: #9a3412">tsx</span> (qui exécute le code sans vérifier les types au préalable, contrairement à <span style="color: #9a3412">tsc</span>) pour voir l&#x27;erreur telle que JavaScript la lève réellement :</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>npx tsx bases/bases-02.ts
 </code></pre></div>
@@ -1281,8 +1281,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>npx tsx bases/bases-03.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>  1  count= 1
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>count= 1
+</code></pre></div></td></tr></table></div>
 <h2 id="34-script-bases-04">3.4. <span style="color: #2e74b5">script [bases-04]</span></h2>
 <p>Une variable locale à une fonction <strong>cache</strong> (masque) une variable globale de même nom :</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
@@ -1312,9 +1312,10 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>npx tsx bases/bases-04.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">  </span><span class="mf">1</span><span class="w">  </span><span class="nx">count</span><span class="w"> </span><span class="nx">outside</span><span class="w"> </span><span class="kd">function</span><span class="o">=</span><span class="w"> </span><span class="mf">1</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="mf">2</span><span class="w">  </span><span class="nx">count</span><span class="w"> </span><span class="nx">inside</span><span class="w"> </span><span class="kd">function</span><span class="o">=</span><span class="w"> </span><span class="mf">2</span>
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nx">count</span><span class="w"> </span><span class="nx">outside</span><span class="w"> </span><span class="kd">function</span><span class="o">=</span><span class="w"> </span><span class="mf">1</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="nx">count</span><span class="w"> </span><span class="nx">inside</span><span class="w"> </span><span class="kd">function</span><span class="o">=</span><span class="w"> </span><span class="mf">2</span>
+</code></pre></div></td></tr></table></div>
 <h2 id="35-script-bases-05">3.5. <span style="color: #2e74b5">script [bases-05]</span></h2>
 <p>Une variable locale (<span style="color: #9a3412">const count</span> à l&#x27;intérieur de la fonction) n&#x27;est <strong>pas visible</strong> en dehors de cette fonction :</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
@@ -1341,15 +1342,16 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>npx tsc --noEmit
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>  1  bases/bases-05.ts(9,40): error TS2304: Cannot find name 'count'.
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>bases/bases-05.ts(9,40): error TS2304: Cannot find name 'count'.
+</code></pre></div></td></tr></table></div>
 <p>Et à l&#x27;exécution avec <span style="color: #9a3412">tsx</span> :</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>npx tsx bases/bases-05.ts
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>  <span class="mi">1</span>  <span class="ne">ReferenceError</span><span class="p">:</span> <span class="n">count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  <span class="mi">2</span>      <span class="n">at</span> <span class="n">bases</span><span class="o">/</span><span class="n">bases</span><span class="o">-</span><span class="mf">05.</span><span class="n">ts</span><span class="p">:</span><span class="mi">9</span><span class="p">:</span><span class="mi">40</span>
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="ne">ReferenceError</span><span class="p">:</span> <span class="n">count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a>    <span class="n">at</span> <span class="n">bases</span><span class="o">/</span><span class="n">bases</span><span class="o">-</span><span class="mf">05.</span><span class="n">ts</span><span class="p">:</span><span class="mi">9</span><span class="p">:</span><span class="mi">40</span>
+</code></pre></div></td></tr></table></div>
 <h2 id="36-script-bases-06">3.6. <span style="color: #2e74b5">script [bases-06]</span></h2>
 <p>Ce script compare la portée de bloc (<strong><span style="color: #9a3412">[let]</span></strong>, <strong><span style="color: #9a3412">[const]</span></strong>) à l&#x27;absence de portée de bloc (<strong><span style="color: #9a3412">[var]</span></strong>) :</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1"> 1</a></span>
@@ -1414,9 +1416,10 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>npx tsc --noEmit
 </code></pre></div>
 <p><em>Résultat de l&#x27;exécution :</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>  1  bases/bases-06.ts(9,1): error TS2552: Cannot find name 'count'. Did you mean 'count3'?
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>  2  bases/bases-06.ts(18,1): error TS2552: Cannot find name 'count2'. Did you mean 'count3'?
-</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>bases/bases-06.ts(9,1): error TS2552: Cannot find name 'count'. Did you mean 'count3'?
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>bases/bases-06.ts(18,1): error TS2552: Cannot find name 'count2'. Did you mean 'count3'?
+</code></pre></div></td></tr></table></div>
 <p>Exécution (le script s&#x27;arrête à la première erreur rencontrée, sur <span style="color: #9a3412">count</span>) :</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>npx tsx bases/bases-06.ts
 </code></pre></div>
@@ -2119,7 +2122,7 @@
           https://stahe.github.io
         </a>
         <br>
-        Ce cours-tutoriel rédigé par <strong>Serge Tahé</strong> est mis à la disposition du public selon les termes de la
+        Ce cours-tutoriel rédigé par l'IA <strong>Claude AI</strong> sous la supervision de <strong>Serge Tahé</strong> est mis à la disposition du public selon les termes de la
         <em>Licence Creative Commons Attribution – Pas d'utilisation commerciale –
         Partage dans les mêmes conditions 3.0 non modifiée</em>.
 
